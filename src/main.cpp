@@ -38,7 +38,8 @@ int main(int argc, char* argv[]) {
 			window.clear();
 
 			window.draw(planet);
-			planet.rotate(M_PI/12*0.01);
+			planet.rotate(M_PI/4*1.0/FPS);
+			planet.move(std::cos(clock.getElapsedTime().asSeconds())*0.5, 0.5*std::sin(clock.getElapsedTime().asSeconds()));
 			window.display();
 		}
 	}
