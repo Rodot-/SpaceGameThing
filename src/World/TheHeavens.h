@@ -7,7 +7,7 @@
 
 enum DangerLevel {BARREN, QUIET, CALM, ACTIVE, HAZARDOUS, DEADLY}
 
-class heavenlyBody {
+class heavenlyBody : public physObj {
 	
 	public:
 	
