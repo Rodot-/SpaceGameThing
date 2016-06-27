@@ -12,7 +12,7 @@ class physObj {
 		~physObj() {}; // destructor
 
 		void outputPhysVec() {}; //Print the location and velocity to the console
-		virtual void runPhysics() {}; //run all physics on this object
+		virtual void interact(*physObj other) {}; //interact with another physObj
 
 	private:
 
