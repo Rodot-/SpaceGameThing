@@ -18,7 +18,6 @@ void animate(sf::Sprite* sprite) {
 	const sf::IntRect intrect = sprite->getTextureRect();
 	sf::Vector2u size = texture->getSize();
 	unsigned int new_left = (intrect.left+128) % size.x;
-	std::cout << new_left << std::endl;
 	sprite->setTextureRect(sf::IntRect(new_left, 0, 128, 128));
 }
 	
