@@ -31,9 +31,9 @@ class Tile{
 
 	private:
 
-		static unsigned int _nframes, _n; //total number of frames, current frame, top position of IntRect
+		unsigned int _nframes, _n; //total number of frames, current frame, top position of IntRect
 		unsigned int* _leftTilePosition; //Position of the left end of the tile
-		static bool _isAnimated;
+		bool _isAnimated;
 		sf::Sprite* _sprite; //the sprite itself
 		sf::Texture* _texture; //The Tile texture
 		sf::IntRect _referenceRect; //holds inforamtion about the size of the int rect we'll use.

@@ -46,6 +46,17 @@ int main(int argc, char* argv[]) {
 	man.setOrigin(64,0);
 	man.setPosition(960,540);
 	man.setScale(2,2);
+
+	//testing
+	Tile man2(&walkTexture, sf::IntRect(0,0,128,128), 6144/128);
+	man2.getSprite()->setPosition(760, 540);
+	unsigned int* frames = (unsigned int*)malloc(sizeof(unsigned int)*6144/128);
+	for (int i = 0; i < 6144; i += 128) { frames[i/128] = i; }
+	man2.setTilePositions(&frames[0]);
+	man2.setAnimated(true);
+	//testing
+
+
 	
 	while (window.isOpen()) {
 	
@@ -59,6 +70,11 @@ int main(int argc, char* argv[]) {
 			clock.restart();
 			window.draw(man);
 			window.draw(planet);
+
+			window.draw(*man2.getSprite());
+			man2.nextFrame();
+			man2.updateAnim();
+
 			planet.rotate(M_PI/4*1.0/FPS);
 			animate(&man);
 			planet.move(std::cos(clock.getElapsedTime().asSeconds())*0.5, 0.5*std::sin(clock.getElapsedTime().asSeconds()));
