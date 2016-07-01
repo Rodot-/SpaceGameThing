@@ -2,16 +2,17 @@
 #define TILE_H
 
 #include "SFML/Graphics.hpp"
-#include <string>
+#include <string.h>
+#include <stdio.h>
 
 class Tile{
 
 	public:
 
 		Tile() {};
-		Tile(sf::Texture* texture, const sf::IntRect Rect, const unsigned int N) {};
+		Tile(sf::Texture* texture, const sf::IntRect Rect, const unsigned int N);
 
-		static bool isAnimated() const; //Is the sprite currently animated?
+		bool isAnimated() const; //Is the sprite currently animated?
 		void incrementFrame(const int n);  //increment (or decrement) frame counter by n
 		void nextFrame(); //go to the next frame
 		void resetAnim(); // go to the first frame
