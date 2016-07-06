@@ -4,17 +4,17 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
-#include "Worlds/gameAssets.h"
+#include "gameAssets.h"
 
-enum DangerLevel {BARREN, QUIET, CALM, ACTIVE, HAZARDOUS, DEADLY}
-enum Interaction {NONE, HOST, FREE}
+enum DangerLevel {BARREN, QUIET, CALM, ACTIVE, HAZARDOUS, DEADLY};
+enum Interaction {NONE, HOST, FREE};
 
 class HeavenlyBody : public PhysicalAsset {
 	
 	public:
 	
 		HeavenlyBody();
-		HeavenlyBody(float radius, float mass, DangerLevel risk): PhysicalAsset();
+		HeavenlyBody(float radius, float mass, DangerLevel risk);
 	
 		virtual ~HeavenlyBody();
 
@@ -40,7 +40,6 @@ class Planet : public HeavenlyBody {
 	private:
 
 };
-*/
 
 
 class System : public HeavenlyBody { //star/planet system that helps to manage physics, each one is itself a heavenly body
@@ -63,7 +62,7 @@ class System : public HeavenlyBody { //star/planet system that helps to manage p
 		std::map<std::string, HeavenlyBody*> _satellites;
 };
 
-
+*/
 
 #endif
 
