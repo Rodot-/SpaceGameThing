@@ -7,6 +7,8 @@
 #include <string.h>
 #include <sstream>
 #include "World/gameAssets.h"
+#include "World/assetManager.h"
+#include "World/TheHeavens.h"
 
 #define WIDTH 1920
 #define HEIGHT 1080
@@ -18,10 +20,29 @@ int main(int argc, char* argv[]) {
 	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SpaceGameThing");
 	sf::Clock clock;
 
-	PhysicalAsset planet;
-	planet.Load("../bin/planet.png");
-	planet.SetPosition(960, 540);
-	
+	float dt;
+
+	AssetManager manager;
+
+	PhysicalAsset* planet = new PhysicalAsset();
+	planet->Load("../bin/planet.png");
+	planet->SetPosition(960, 540);
+
+	PhysicalAsset* planet2 = new PhysicalAsset();
+	planet2->Load("../bin/planet.png");
+	planet2->SetPosition(500, 640);
+
+	HeavenlyBody* planet3 = new HeavenlyBody(0.25, 100.5, QUIET);
+	planet3->Load("../bin/planet.png");
+	planet3->SetPosition(1200, 440);
+
+	planet3->setVx(5.1);
+	planet3->setVy(10.1);
+
+	manager.Add("Pluto", planet3);
+	manager.Add("Mercury", planet2);
+	manager.Add("Mars", planet);
+
 	while (window.isOpen()) {
 	
 		sf::Event event;
@@ -31,8 +52,11 @@ int main(int argc, char* argv[]) {
 		}
 		if (clock.getElapsedTime().asSeconds() > 1.0/FPS) {
 			window.clear();
-			clock.restart();
-			planet.Draw(window);
+			dt = clock.restart().asSeconds();
+		
+			manager.DrawAll(window);
+	
+			planet3->Update(dt);
 
 			window.display();
 		}
