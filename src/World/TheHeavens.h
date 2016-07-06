@@ -4,47 +4,65 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
-#include "Physics/PhysObj.h"
+#include "Worlds/gameAssets.h"
 
 enum DangerLevel {BARREN, QUIET, CALM, ACTIVE, HAZARDOUS, DEADLY}
+enum Interaction {NONE, HOST, FREE}
 
-class HeavenlyBody : public physObj {
+class HeavenlyBody : public PhysicalAsset {
 	
 	public:
 	
-		heavenlyBody() {};
-		heaventlyBody(float radius, DangerLevel risk, std::vector<physObj*> interactors): physObj() {};
+		HeavenlyBody();
+		HeavenlyBody(float radius, float mass, DangerLevel risk): PhysicalAsset();
 	
-		void initSprite();
+		virtual ~HeavenlyBody();
 
-		void set_texture(sf::Texture texture);
-		sf::Sprite getSprite() const;
-
-		void set_radius(float radius);
-		float get_radius() const;
+		void SetRadius(float radius);
+		float GetRadius() const;
 		
-		void set_danger_level(DangerLevel risk);
-		DangerLevel get_danger_level() const;
-			
-		void addInteractor(physObj*);
-		std::vector<physObj*> getInteractors();
+		void SetDangerLevel(DangerLevel risk);
+		DangerLevel GetDangerLevel() const;
 			
 	private:
 
-		float _radius;
-		
-		DangerLevel _risk;
-		std::vector<physObj*> _interactors; //Vector of bodies this body physically interacts with
-	
-		//Graphical Attributes
-		sf::Sprite _sprite;
-		sf::Texture _texture;
+		float _radius; //Planet's radius
+		std::string _name;
+		DangerLevel _risk; //
 
 };
-
+/*
 class Planet : public HeavenlyBody {
 
+
+	public:
+
+	private:
+
 };
+*/
+
+
+class System : public HeavenlyBody { //star/planet system that helps to manage physics, each one is itself a heavenly body
+
+//keep off this for now, will just go the slow way for the time being
+
+	public:
+
+		System();
+		~System();
+
+		void Add(std::string name, HeavenlyBody* satellite);
+		void Remove(std::string name) 
+		void GetObjectCount() const;
+		HeavenlyBody* Get(std::string name);
+
+	private:
+
+		HeavenlyBody* _host;
+		std::map<std::string, HeavenlyBody*> _satellites;
+};
+
 
 
 #endif
