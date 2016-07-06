@@ -5,7 +5,8 @@ class World {
 
 	public:
 
-		World() {};
+		World();
+		virtual ~World();
 
 	private:
 
@@ -16,8 +17,8 @@ class Surface : public World {
 
 	public:
 
-		Surface() {};
-		Surface(float g) : World();
+		Surface();
+		Surface(float g);
 
 	private:
 
@@ -31,7 +32,7 @@ class Universe : public World {
 	public:
 
 		Universe() {};
-		Universe(float G) : World();
+		Universe(float G);
 
 	private:
 
