@@ -2,16 +2,16 @@
 #define ASSET_MANAGER_H
 
 #include <string.h>
-#include "Worlds/gameAssets.h"
-#include "Worlds/Worlds.h"
+#include "gameAssets.h"
+#include "Worlds.h"
 
 #pragma once
 class AssetManager {
 
 	public:
 
-		AssetManger();
-		~AssetManger();
+		AssetManager();
+		~AssetManager();
 
 		void Add(std::string name, GameAsset* gameAsset); //add a game asset to the manager
 		void Remove(std::string name); //remove a game asset from the manager
@@ -25,7 +25,7 @@ class AssetManager {
 
 		std::map<std::string, GameAsset*> _gameAssets; //game assets in this class
 		struct GameAssetDeallocator { //deallocate the game assets
-			void operator()(const std::pair<std::string, GameAsset*> & p) const {
+			void operator()(const std::pair<std::string, GameAsset*>& p) const {
 				delete p.second;
 			}
 		};
@@ -35,35 +35,34 @@ class PhysicsManager { //should this manage collisions or should the classes do 
 
 	public:
 	
-		PhysicsManager(AssetManager* assetManager);
+		PhysicsManager();
 		virtual ~PhysicsManager();
 
+		void Add(PhysicalAsset* physObj);
+		void Remove(int pos);
 
-
-		void UpdatePhysAssets(); //update the list of physics assets from the asset manager
 		virtual void UpdatePhysics(); //run physics on all physics objects
 
 		int GetObjectCount() const; //get number of phys objects
 
-	protected;
+	protected:
 
 		std::vector<PhysicalAsset*> _physicsAssets; //phys objects we work with
 
-	private:
-
-		AssetManager* _assetManager; //world asset manager
 };
-
+/*
 class SurfacePhysicsManager {
 
 };
-
+*/
 class UniversePhysicsManager {
 
 	public:
 
-		UniversePhysicsManager(AssetManager* assetManager, Universe* universe):PhysicsManager(assetManager);
+		UniversePhysicsManager(Universe* universe);
 		~UniversePhysicsManager();
+
+		void UpdatePhysics();
 
 	private:
 
