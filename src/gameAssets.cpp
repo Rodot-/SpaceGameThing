@@ -1,5 +1,7 @@
 
 #include "World/gameAssets.h"
+#include "World/Forces.h"
+#include "Math/integrators.h"
 
 
 //General Game asset
@@ -54,12 +56,22 @@ bool GameAsset::IsCollidable(void) const {
 //Physical Assets (Physics Objects)
 PhysicalAsset::PhysicalAsset(void) {
 	_physVec = (float*)malloc(sizeof(float)*_ndim);
+	for (int i = 0; i < _ndim; ++i) {
+		_physVec[i] = 0.0f;
+	}
 	_COM = (float*)malloc(sizeof(float)*2);
 }
 
 PhysicalAsset::~PhysicalAsset(void) {}
 
-void PhysicalAsset::Update(float elapsedTime) { }
+void PhysicalAsset::Update(float elapsedTime) {
+
+	float* rhsf = (float*)malloc(sizeof(float)*_ndim);
+	Euler_step(0, elapsedTime, _physVec, basicRHSF, this);
+	SetPosition(_physVec[0], _physVec[1]);
+	GetSprite().setRotation(_physVec[4]);
+
+}
 
 void PhysicalAsset::Draw(sf::RenderWindow& window) {
 	GameAsset::Draw(window);
@@ -83,6 +95,13 @@ float PhysicalAsset::getBeta() const { return _beta; }
 float PhysicalAsset::getI() const { return _I; }
 float* PhysicalAsset::getCOM() const { return _COM; }
 float* PhysicalAsset::getPhysVec() const { return _physVec; }
+
+void PhysicalAsset::SetPosition(float x, float y) {
+
+	GameAsset::SetPosition(x, y);
+	_physVec[0] = x;
+	_physVec[1] =y;
+}
 
 void PhysicalAsset::setMass(float mass) { _mass = mass; }
 void PhysicalAsset::setMu_k(float mu_k) { _mu_k = mu_k; }

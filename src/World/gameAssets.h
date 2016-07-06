@@ -64,6 +64,7 @@ class PhysicalAsset : public GameAsset {
 		float* getPhysVec() const;
 
 		//setters
+		void SetPosition(float x, float y);
 		void setMass(float mass);
 		void setMu_k(float mu_k);
 		void setMu_s(float mu_s);
