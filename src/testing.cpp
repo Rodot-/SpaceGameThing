@@ -19,29 +19,55 @@ int main(int argc, char* argv[]) {
 
 	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SpaceGameThing");
 	sf::Clock clock;
+	sf::Clock physClock;
 
 	float dt;
 
 	AssetManager manager;
+	PhysicsManager physManager;
 
-	PhysicalAsset* planet = new PhysicalAsset();
+	HeavenlyBody* planet = new HeavenlyBody(1.0, 1.0, QUIET);
 	planet->Load("../bin/planet.png");
 	planet->SetPosition(960, 540);
+	planet->SetOrigin(planet->GetLocalBounds().width/2, planet->GetLocalBounds().height/2);
 
-	PhysicalAsset* planet2 = new PhysicalAsset();
+	HeavenlyBody* planet2 = new HeavenlyBody(0.1, 0.1, QUIET);
 	planet2->Load("../bin/planet.png");
 	planet2->SetPosition(500, 640);
+	planet2->SetOrigin(planet2->GetLocalBounds().width/2, planet2->GetLocalBounds().height/2);
 
 	HeavenlyBody* planet3 = new HeavenlyBody(0.25, 100.5, QUIET);
 	planet3->Load("../bin/planet.png");
 	planet3->SetPosition(1200, 440);
+	planet3->SetOrigin(planet3->GetLocalBounds().width/2, planet3->GetLocalBounds().height/2);
 
-	planet3->setVx(5.1);
-	planet3->setVy(10.1);
+	planet3->setMass(104);
+	planet2->setMass(10);
+	planet->setMass(1025);
+
 
 	manager.Add("Pluto", planet3);
 	manager.Add("Mercury", planet2);
 	manager.Add("Mars", planet);
+
+	physManager.Add(planet3);
+	physManager.Add(planet);
+	physManager.Add(planet2);
+	physManager.InitPhysVec();
+
+	planet2->BindToHost(*planet, 500);
+	planet2->SetColor(sf::Color(255, 0, 255, 255));
+
+	planet3->BindToHost(*planet, 200);
+
+	planet->setOmega(M_PI/8);
+
+	planet3->SetColor(sf::Color(0, 255, 255, 255));
+
+	planet->setVx(0.0);
+	planet->setVy(-(planet2->GetVelocity().y*planet2->getMass()+planet3->GetVelocity().y*planet3->getMass())/planet->getMass());
+
+	printf("%f\n", planet->GetLocalBounds().width);
 
 	while (window.isOpen()) {
 	
@@ -51,13 +77,12 @@ int main(int argc, char* argv[]) {
 				window.close();
 		}
 		if (clock.getElapsedTime().asSeconds() > 1.0/FPS) {
+			clock.restart();
+			physManager.UpdatePhysics(physClock.restart().asSeconds());
 			window.clear();
-			dt = clock.restart().asSeconds();
 		
 			manager.DrawAll(window);
 	
-			planet3->Update(dt);
-
 			window.display();
 		}
 	}

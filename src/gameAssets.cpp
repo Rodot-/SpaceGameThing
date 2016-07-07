@@ -2,6 +2,7 @@
 #include "World/gameAssets.h"
 #include "World/Forces.h"
 #include "Math/integrators.h"
+#include <stdio.h>
 
 
 //General Game asset
@@ -29,8 +30,23 @@ void GameAsset::Draw(sf::RenderWindow& window) {
 
 void GameAsset::Update(float elapsedTime) {}
 
+sf::FloatRect GameAsset::GetLocalBounds(void) const {
+
+	return _sprite.getLocalBounds();
+} 
+
 void GameAsset::SetPosition(float x, float y) {
 	if (_isLoaded) _sprite.setPosition(x, y);
+}
+
+void GameAsset::SetColor(const sf::Color& color) {
+
+	_sprite.setColor(color);
+}
+
+void GameAsset::SetOrigin(float x, float y) {
+	
+	_sprite.setOrigin(x, y);
 }
 
 sf::Vector2f GameAsset::GetPosition(void) const {
@@ -44,6 +60,7 @@ bool GameAsset::SetCollidable(bool state) {
 sf::Sprite& GameAsset::GetSprite(void) {
 	return _sprite;
 }
+
 
 bool GameAsset::IsLoaded(void) const {
 	return _isLoaded;
@@ -66,11 +83,14 @@ PhysicalAsset::~PhysicalAsset(void) {}
 
 void PhysicalAsset::Update(float elapsedTime) {
 
+	/*
 	float* rhsf = (float*)malloc(sizeof(float)*_ndim);
 	Euler_step(0, elapsedTime, _physVec, basicRHSF, this);
 	SetPosition(_physVec[0], _physVec[1]);
 	GetSprite().setRotation(_physVec[4]);
-
+	*/
+	SetPosition(_physVec[0], _physVec[1]);
+	GetSprite().setRotation(_physVec[4]);
 }
 
 void PhysicalAsset::Draw(sf::RenderWindow& window) {
@@ -116,7 +136,10 @@ void PhysicalAsset::setVy(float vy) { _physVec[3] = vy; }
 void PhysicalAsset::setTheta(float theta) { _physVec[4] = theta; }
 void PhysicalAsset::setOmega(float omega) { _physVec[5] = omega; }
 void PhysicalAsset::setCOM(float x, float y) { _COM[0] = x; _COM[1] = y; }
-
+void PhysicalAsset::setPhysVec(float* vec) {
+	delete _physVec;
+	_physVec = vec;
+}
 
 
 

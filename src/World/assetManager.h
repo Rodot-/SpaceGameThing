@@ -40,14 +40,18 @@ class PhysicsManager { //should this manage collisions or should the classes do 
 
 		void Add(PhysicalAsset* physObj);
 		void Remove(int pos);
+		void InitPhysVec(); //intialize the main physics vector
 
-		virtual void UpdatePhysics(); //run physics on all physics objects
+		virtual void UpdatePhysics(float elapsedTime); //run physics on all physics objects
 
 		int GetObjectCount() const; //get number of phys objects
 
 	protected:
 
 		std::vector<PhysicalAsset*> _physicsAssets; //phys objects we work with
+		float* _physVec;
+		const static float _ndim = 6; //number of physics dimensions per vector
+
 
 };
 /*
@@ -62,7 +66,7 @@ class UniversePhysicsManager {
 		UniversePhysicsManager(Universe* universe);
 		~UniversePhysicsManager();
 
-		void UpdatePhysics();
+		void UpdatePhysics(float elapsedTime);
 
 	private:
 

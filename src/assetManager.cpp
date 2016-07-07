@@ -1,4 +1,6 @@
 #include "World/assetManager.h"
+#include "World/Forces.h"
+#include "Math/integrators.h"
 #include <iostream>
 
 //base asset manager
@@ -56,7 +58,23 @@ void PhysicsManager::Remove(int pos) {
 	_physicsAssets.erase(_physicsAssets.begin()+pos);
 }
 
-void PhysicsManager::UpdatePhysics(void) {
+void PhysicsManager::InitPhysVec(void) {
+
+	_physVec = (float*)malloc(sizeof(float)*_ndim*_physicsAssets.size());
+	for (int i = 0; i < _physicsAssets.size() ; ++i) {
+		for (int j = 0; j < 6; ++j) {
+			_physVec[6*i+j] = _physicsAssets[i]->getPhysVec()[j];
+		}
+		_physicsAssets[i]->setPhysVec(&_physVec[6*i]);
+	}
+
+}
+void PhysicsManager::UpdatePhysics(float elapsedTime) {
+	//Test using the universe physics
+	RK4_step(0, elapsedTime, _physVec, _physicsAssets, gravitationalRHSF);
+	for (std::vector<PhysicalAsset*>::iterator i = _physicsAssets.begin(); i < _physicsAssets.end(); ++i) {
+		(*i)->Update(elapsedTime);
+	} 
 
 }
 
@@ -72,7 +90,7 @@ UniversePhysicsManager::UniversePhysicsManager(Universe* universe) {
 
 UniversePhysicsManager::~UniversePhysicsManager(void) { }
 
-void UniversePhysicsManager::UpdatePhysics(void) {}
+void UniversePhysicsManager::UpdatePhysics(float elapsedTime) {}
 
 
 

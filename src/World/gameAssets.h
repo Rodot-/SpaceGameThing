@@ -17,7 +17,11 @@ class GameAsset { //generic game asset class
 		virtual void Draw(sf::RenderWindow& window); //draw the object on the screen
 		virtual void Update(float elapsedTime);  //update the object based on how much time has passed
 
+		virtual sf::FloatRect GetLocalBounds() const;
 		virtual void SetPosition(float x, float y); //set the position of the object on the screen
+		virtual void SetColor(const sf::Color& color);
+		virtual void SetOrigin(float x, float y);		
+
 		virtual sf::Vector2f GetPosition() const; //get the position of the sprite
 
 		bool IsLoaded() const;
@@ -78,6 +82,7 @@ class PhysicalAsset : public GameAsset {
 		void setTheta(float theta);
 		void setOmega(float omega);
 		void setCOM(float x, float y);
+		void setPhysVec(float* vec); //set the pointer location of the physics vector
 
 	protected:
 

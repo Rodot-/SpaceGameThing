@@ -10,6 +10,10 @@
 
 void basicRHSF(float t, float f[], float rhsf[], PhysicalAsset* physObj); 
 
+float* gravityVector(PhysicalAsset* objA, PhysicalAsset* objB);
+
+void gravitationalRHSF(float t, float f[], float rhsf[], std::vector<PhysicalAsset*>);
+
 float* Gravity(PhysicalAsset* objA, PhysicalAsset* objB);
 float* Friction(PhysicalAsset* objA, PhysicalAsset* objB);
 float* Spring(PhysicalAsset* objA, PhysicalAsset* objB);

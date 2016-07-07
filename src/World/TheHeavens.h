@@ -23,7 +23,10 @@ class HeavenlyBody : public PhysicalAsset {
 		
 		void SetDangerLevel(DangerLevel risk);
 		DangerLevel GetDangerLevel() const;
-			
+
+		void BindToHost(HeavenlyBody& other, float radius ); //set up this body to orbit another body
+		//will remake this method with eccentricity, and three point fitting		
+	
 	private:
 
 		float _radius; //Planet's radius
