@@ -26,7 +26,7 @@ class GameAsset { //generic game asset class
 
 		bool IsLoaded() const;
 		bool IsCollidable() const;
-		bool SetCollidable(bool state);
+		void SetCollidable(bool state);
 
 	protected:
 
@@ -39,6 +39,8 @@ class GameAsset { //generic game asset class
 		std::string _filename; //origin file
 		sf::Sprite _sprite; //the sprite representing this object
 		sf::Texture _texture; //the image for the sprite
+		//possibly add a map of animations?  Default would be idle (none)
+		//Probably best to leave this for a subclass
 
 };
 

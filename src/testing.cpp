@@ -41,33 +41,43 @@ int main(int argc, char* argv[]) {
 	planet3->SetPosition(1200, 440);
 	planet3->SetOrigin(planet3->GetLocalBounds().width/2, planet3->GetLocalBounds().height/2);
 
+	HeavenlyBody* moon = new HeavenlyBody(0.075, 0.5, QUIET);
+	moon->Load("../bin/planet.png");
+	moon->SetOrigin(moon->GetLocalBounds().width/2, moon->GetLocalBounds().height/2);
+	
 	planet3->setMass(104);
 	planet2->setMass(10);
-	planet->setMass(1025);
+	planet->setMass(525);
 
-
+	manager.Add("Phobos", moon);
 	manager.Add("Pluto", planet3);
 	manager.Add("Mercury", planet2);
 	manager.Add("Mars", planet);
 
+	physManager.Add(moon);
 	physManager.Add(planet3);
 	physManager.Add(planet);
 	physManager.Add(planet2);
 	physManager.InitPhysVec();
+
+	moon->SetColor(sf::Color(255,255,255,255));
 
 	planet2->BindToHost(*planet, 500);
 	planet2->SetColor(sf::Color(255, 0, 255, 255));
 
 	planet3->BindToHost(*planet, 200);
 
+	moon->BindToHost(*planet2, 20);
+
 	planet->setOmega(M_PI/8);
+	planet2->setOmega(M_PI/4);
+	planet3->setOmega(M_PI/2);
+	moon->setOmega(M_PI/12);
 
 	planet3->SetColor(sf::Color(0, 255, 255, 255));
 
 	planet->setVx(0.0);
 	planet->setVy(-(planet2->GetVelocity().y*planet2->getMass()+planet3->GetVelocity().y*planet3->getMass())/planet->getMass());
-
-	printf("%f\n", planet->GetLocalBounds().width);
 
 	while (window.isOpen()) {
 	

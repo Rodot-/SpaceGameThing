@@ -53,7 +53,7 @@ sf::Vector2f GameAsset::GetPosition(void) const {
 	return _sprite.getPosition();
 }
 
-bool GameAsset::SetCollidable(bool state) { 
+void GameAsset::SetCollidable(bool state) { 
 	_collidable = state;
 }
 
