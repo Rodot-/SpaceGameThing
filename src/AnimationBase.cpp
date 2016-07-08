@@ -2,120 +2,174 @@
 #include "Anim/AnimationBase.h"
 #include <stdio.h>
 
-//animation container
-AnimationContainer::AnimationContainer(void) {
+//Base animation container
+Animation::Animation(void) {
 
 	_baseFrameTime = 1/60.0;
 }
 
-AnimationContainer::AnimationContainer(std::vector<const sf::IntRect*> frames) {
+Animation::~Animation(void) {}
 
-	_baseFrameTime = 1/60.0;
-	_frames = frames;
-}
-
-AnimationContainer::~AnimationContainer(void) {}
-
-void AnimationContainer::AddFrame(const sf::IntRect* frame) {
+void Animation::AddFrame(const sf::IntRect frame) {
 
 	_frames.push_back(frame);
-	_frameTimeMultiplier.push_back(1);
+	_frameTime.push_back(1);
 }
 
-void AnimationContainer::AddFrame(const sf::IntRect* frame, unsigned int frameTime) {
+void Animation::AddFrame(const sf::IntRect frame, unsigned int frameTime) {
 
 	_frames.push_back(frame);
-	_frameTimeMultiplier.push_back(frameTime);
+	_frameTime.push_back(frameTime);
 }
 
-void AnimationContainer::RemoveFrame(int pos) {
+void Animation::RemoveFrame(int pos) {
 	
 	_frames.erase(_frames.begin()+pos);
-	_frameTimeMultiplier.erase(_frameTimeMultiplier.begin()+pos);	
+	_frameTime.erase(_frameTime.begin()+pos);	
 }
 
-void AnimationContainer::SetBaseFrameTime(float frameTime) {
+void Animation::SetBaseFrameTime(float frameTime) {
 
 	_baseFrameTime = frameTime;
 }
 
-unsigned int AnimationContainer::GetFrameMultiplier(int pos) const { return _frameTimeMultiplier[pos]; }
+float Animation::GetBaseFrameTime(void) const { return _baseFrameTime; }
 
+const sf::IntRect& Animation::GetFrame(int pos) const { return _frames[pos]; }
 
-float AnimationContainer::GetBaseFrameTime(void) const { return _baseFrameTime; }
+unsigned int Animation::GetFrameTime(int pos) const { return _frameTime[pos]; }
 
-std::size_t AnimationContainer::GetFrameCount(void) const { return _frames.size(); }
+float Animation::GetTotalFrameTime(int pos) const { return _frameTime[pos]*_baseFrameTime; }
 
-const sf::IntRect AnimationContainer::GetFrame(int pos) const { return *_frames[pos]; }
+unsigned int Animation::GetFrameCount(void) const { return _frames.size(); }
 
-//Animation base class
+//Multiple Animation container
 
-Animation::Animation(void) : _isPaused(true), _isLooped(false), _elapsedTime(0.0), _currentFrame(0) {
+MultiAnimation::MultiAnimation(void) {}
+
+MultiAnimation::~MultiAnimation(void) {}
+
+void MultiAnimation::Add(std::string name, Animation animation) {
+
+	_animations.insert(std::make_pair<std::string, Animation>(name, animation));
+}
+
+void MultiAnimation::Remove(std::string name) {
+	
+	std::map<std::string, Animation>::iterator item = _animations.find(name);
+	if (item != _animations.end() ) {
+		_animations.erase(item);
+	}
+}
+
+Animation& MultiAnimation::Get(std::string name) {
+
+	std::map<std::string, Animation>::iterator item = _animations.find(name);
+	if (item != _animations.end() ) 
+		return item->second;
+}
+
+//Animator animation manager
+
+Animator::Animator(void) : _isPaused(true), _isLooped(false), _elapsedTime(0.0), _currentFrame(0) {
 
 }
 
-Animation::Animation(const AnimationContainer& animation) : _isPaused(true), _isLooped(false), _elapsedTime(0.0), _currentFrame(0) {
+Animator::Animator(const Animation& animation) : _isPaused(true), _isLooped(false), _elapsedTime(0.0), _currentFrame(0) {
 
-	_animCont = &animation;
+	_anim = &animation;
 }
 
-Animation::~Animation(void) {} 
+Animator::~Animator(void) {} 
 
-void Animation::Update(float elapsedTime) {
+void Animator::Update(float elapsedTime) {
 
-	if (IsPaused()) {} 
+	if ( IsPaused() ) {} 
 	else {
 		_elapsedTime += elapsedTime;
-		if (_elapsedTime > _animCont->GetFrameMultiplier(_currentFrame)*_animCont->GetBaseFrameTime()) {
+		if ( _elapsedTime > _anim->GetTotalFrameTime(_currentFrame) ) {
+			_isReady = true;
+			//_elapsedTime -= _anim->GetBaseFrameTime();
 			_elapsedTime = 0;
-			if (_currentFrame+1 < _animCont->GetFrameCount())
-				_currentFrame++;
-			else if (IsLooped())
-				_currentFrame = 0;
+			if (++_currentFrame >= _anim->GetFrameCount()) {
+				if (IsLooped())
+					_currentFrame = 0;
+				else
+					Stop();
+			}
 		}	
 	}
 }
 
-void Animation::Play(void) {
+void Animator::Play(void) {
 
 	_isPaused = false;
 }
 
-void Animation::Play(const AnimationContainer& animation) {
+void Animator::Play(const Animation& animation) {
 
-	if (_animCont != &animation) {
-		SetAnimationContainer(animation);
-		_currentFrame = 0;
-	}
+	SetAnimation(animation);
 	Play();
 }
 
-void Animation::Pause(void) {
+void Animator::Pause(void) {
 
 	_isPaused = true;
 }
 
-void Animation::Stop(void) {
+void Animator::Stop(void) {
 
 	_isPaused = true;
+	_isReady = true; //careful of the isReady boolean.  We want the animation to update to the first frame
 	_currentFrame = 0;
 }
 
-bool Animation::IsPaused(void) const { return _isPaused; }
+bool Animator::FrameReady(void) { //careful, this can only be called once!  This is checked after update 
+	if (_isReady) {
+		_isReady = false;
+		return true; 
+	}
+	else
+		return false;
+}
 
-bool Animation::IsLooped() const { return _isLooped; }
+bool Animator::IsPaused(void) const { return _isPaused; }
 
-void Animation::SetLooped(bool looped) {
+bool Animator::IsLooped(void) const { return _isLooped; }
+
+void Animator::SetLooped(bool looped) {
 
 	_isLooped = looped;
 }
 
-void Animation::SetAnimationContainer(const AnimationContainer& animation) {
+void Animator::SetAnimation(const Animation& animation) {
 
-	_animCont = &animation;
+	if (_anim != &animation) {
+		_anim = &animation;
+		_currentFrame = 0;
+	}
 }
 
-const AnimationContainer* Animation::GetAnimationContainer(void) const { return _animCont; }
+const Animation* Animator::GetAnimation(void) const { return _anim; }
 
-unsigned int Animation::GetCurrentFrame() const { return _currentFrame; }
+unsigned int Animator::GetCurrentIndex(void) const { return _currentFrame; }
+
+const sf::IntRect& Animator::GetCurrentFrame(void) const { return _anim->GetFrame(_currentFrame); }
+
+float Animator::GetElapsedTime(void) const { return _elapsedTime; }
+
+
+Animation RollingTileSheet(unsigned int width, unsigned int height, unsigned int row, unsigned int nframes) {
+
+	Animation anim;
+	float top = row*height;
+	for (int i = 0; i < nframes; ++i) 
+		anim.AddFrame(sf::IntRect(i*width, top, width, height));
+	return anim;
+}
+
+
+
+
+
 
