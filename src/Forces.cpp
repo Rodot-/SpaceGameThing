@@ -2,10 +2,12 @@
 #include <cmath>
 #include "World/Forces.h"
 #include "World/Worlds.h"
+#include "World/WorldGeometry.h"
 #include "stdlib.h"
 #include <stdio.h>
 
 #define G -100
+#define g 9.8
 
 void basicRHSF(float t, float f[], float rhsf[], PhysicalAsset* physObj) {
 
@@ -31,6 +33,23 @@ float* gravityVector(PhysicalAsset* objA, PhysicalAsset* objB) {
 
 	return force;
 }
+
+/*
+float* FrictionVector(PhysicalAsset* obj, WorldGeometry* surface) {
+
+	float* force = (float*)malloc(sizeof(float)*2);
+	force[1] = 0;
+	force[0] = 0;
+	if ((obj->getPhysVec()[1] < surface.top) and (abs(obj->getPhysVec()) > 0)) {
+		force[0] = obj->getMass()*g*obj->getMu_s();
+		if (abs(obj->getPhysVec()[2]) < force[0] * 0.01) {
+			obj->setVx(0.0);
+			force[0] = 0;
+		}
+	
+	return force;
+}
+*/
 
 void gravitationalRHSF(float t, float f[], float rhsf[], std::vector<PhysicalAsset*> physVec) {
 
