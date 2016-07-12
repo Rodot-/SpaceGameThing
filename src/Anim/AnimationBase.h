@@ -28,22 +28,25 @@ class Animation { //contains basic math/timing properties of a single animation
 		void RemoveFrame(int pos); //remove a frame at this index (might not need this)
 
 		void SetBaseFrameTime(float frameTime);  //set the base frame time
-		
+		void SetTexture(sf::Texture& texture);	
+	
 		float GetBaseFrameTime() const; //get the frame time
 		const sf::IntRect& GetFrame(int pos) const; //get the frame at this index	
 		unsigned int GetFrameTime(int pos) const; //get the frame time in frame counts
 		float GetTotalFrameTime(int pos) const; //get the frame time in seconds
 		unsigned int GetFrameCount() const; //get the number of frames
+		sf::Texture* GetTexture() const;
 		
 	private:
 
 		float _baseFrameTime; //default time each frame displays for
 		std::vector<unsigned int> _frameTime; //vector of lengths of times the frames display for in units of the base frame time
 		std::vector<sf::IntRect> _frames; //Array of IntRects designating frames	
+		sf::Texture* _texture;
 
 };
 
-class MultiAnimation { //simple conatainer holding multiple animations, higher level classes will have one
+class MultiAnimation { //simple conatainer holding multiple animations, higher level classes will have one, need an animation registry too
 
 	public:
 

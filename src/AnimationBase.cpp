@@ -33,6 +33,10 @@ void Animation::SetBaseFrameTime(float frameTime) {
 	_baseFrameTime = frameTime;
 }
 
+void Animation::SetTexture(sf::Texture& texture) {
+
+	_texture = &texture;
+}
 float Animation::GetBaseFrameTime(void) const { return _baseFrameTime; }
 
 const sf::IntRect& Animation::GetFrame(int pos) const { return _frames[pos]; }
@@ -42,6 +46,8 @@ unsigned int Animation::GetFrameTime(int pos) const { return _frameTime[pos]; }
 float Animation::GetTotalFrameTime(int pos) const { return _frameTime[pos]*_baseFrameTime; }
 
 unsigned int Animation::GetFrameCount(void) const { return _frames.size(); }
+
+sf::Texture* Animation::GetTexture(void) const { return _texture; }
 
 //Multiple Animation container
 
