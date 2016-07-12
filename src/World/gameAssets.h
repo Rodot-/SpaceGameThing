@@ -2,14 +2,17 @@
 #define GAME_ASSETS_H
 
 #include "SFML/Graphics.hpp"
+#include "../Anim/AnimationBase.h"
+#include "../Accounting/Registries.h"
 #include <string.h>
 #include <stdlib.h>
+
 
 #pragma once
 class GameAsset { //generic game asset class
 
 	public:
-		
+
 		GameAsset();
 		virtual ~GameAsset();
 
@@ -18,6 +21,7 @@ class GameAsset { //generic game asset class
 		virtual void Update(float elapsedTime);  //update the object based on how much time has passed
 
 		virtual sf::FloatRect GetLocalBounds() const;
+		virtual sf::FloatRect GetGlobalBounds() const;
 		virtual void SetPosition(float x, float y); //set the position of the object on the screen
 		virtual void SetColor(const sf::Color& color);
 		virtual void SetOrigin(float x, float y);		
@@ -31,6 +35,7 @@ class GameAsset { //generic game asset class
 	protected:
 
 		sf::Sprite& GetSprite(); //get the sprite object
+		sf::Texture& GetTexture(); //the the texture object
 
 	private:
 
@@ -44,7 +49,7 @@ class GameAsset { //generic game asset class
 
 };
 
-
+#pragma once
 class PhysicalAsset : public GameAsset {
 
 	public:

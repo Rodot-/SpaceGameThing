@@ -13,6 +13,12 @@ GameAsset::~GameAsset(void) {}
 
 void GameAsset::Load(std::string filename) {
 
+	_texture = TextureRegistry::Get(filename);
+	_isLoaded = true;
+	_filename = filename;
+	_sprite.setTexture(_texture);	
+
+	/*
 	if (_texture.loadFromFile(filename) == false) {
 		_filename = "";
 		_isLoaded = false;
@@ -22,6 +28,7 @@ void GameAsset::Load(std::string filename) {
 		_sprite.setTexture(_texture);
 		_isLoaded = true;
 	}
+	*/	
 }
 
 void GameAsset::Draw(sf::RenderWindow& window) {
@@ -34,6 +41,12 @@ sf::FloatRect GameAsset::GetLocalBounds(void) const {
 
 	return _sprite.getLocalBounds();
 } 
+
+sf::FloatRect GameAsset::GetGlobalBounds(void) const {
+
+	return _sprite.getGlobalBounds();
+} 
+
 
 void GameAsset::SetPosition(float x, float y) {
 	if (_isLoaded) _sprite.setPosition(x, y);
@@ -61,6 +74,9 @@ sf::Sprite& GameAsset::GetSprite(void) {
 	return _sprite;
 }
 
+sf::Texture& GameAsset::GetTexture(void) {
+	return _texture;
+}
 
 bool GameAsset::IsLoaded(void) const {
 	return _isLoaded;
