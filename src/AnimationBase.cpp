@@ -5,6 +5,7 @@
 //Base animation container
 Animation::Animation(void) {
 
+	_reversed = false;
 	_baseFrameTime = 1/60.0;
 }
 
@@ -37,9 +38,18 @@ void Animation::SetTexture(sf::Texture& texture) {
 
 	_texture = &texture;
 }
+
+void Animation::SetReversed(bool state) {
+
+	_reversed = state;
+}
+
 float Animation::GetBaseFrameTime(void) const { return _baseFrameTime; }
 
-const sf::IntRect& Animation::GetFrame(int pos) const { return _frames[pos]; }
+const sf::IntRect& Animation::GetFrame(int pos) const { 
+
+	return (!IsReversed() ) ? _frames[pos] : _frames[GetFrameCount() - pos - 1];
+}
 
 unsigned int Animation::GetFrameTime(int pos) const { return _frameTime[pos]; }
 
@@ -49,13 +59,15 @@ unsigned int Animation::GetFrameCount(void) const { return _frames.size(); }
 
 sf::Texture* Animation::GetTexture(void) const { return _texture; }
 
+bool Animation::IsReversed(void) const { return _reversed; }
+
 //Multiple Animation container
 
 MultiAnimation::MultiAnimation(void) {}
 
 MultiAnimation::~MultiAnimation(void) {}
 
-void MultiAnimation::Add(std::string name, Animation animation) {
+void MultiAnimation::Add(std::string name, Animation& animation) {
 
 	_animations.insert(std::make_pair<std::string, Animation>(name, animation));
 }
@@ -77,7 +89,7 @@ Animation& MultiAnimation::Get(std::string name) {
 
 //Animator animation manager
 
-Animator::Animator(void) : _isPaused(true), _isLooped(false), _elapsedTime(0.0), _currentFrame(0) {
+Animator::Animator(void) : _isPaused(true), _isLooped(false), _elapsedTime(0.0), _currentFrame(0), _anim(NULL) {
 
 }
 
@@ -153,6 +165,7 @@ void Animator::SetAnimation(const Animation& animation) {
 	if (_anim != &animation) {
 		_anim = &animation;
 		_currentFrame = 0;
+		_isReady = true; //make sure we know the next frame is ready!
 	}
 }
 

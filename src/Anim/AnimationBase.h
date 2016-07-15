@@ -29,6 +29,7 @@ class Animation { //contains basic math/timing properties of a single animation
 
 		void SetBaseFrameTime(float frameTime);  //set the base frame time
 		void SetTexture(sf::Texture& texture);	
+		void SetReversed(bool state); //set the animation's reversed flag
 	
 		float GetBaseFrameTime() const; //get the frame time
 		const sf::IntRect& GetFrame(int pos) const; //get the frame at this index	
@@ -36,13 +37,19 @@ class Animation { //contains basic math/timing properties of a single animation
 		float GetTotalFrameTime(int pos) const; //get the frame time in seconds
 		unsigned int GetFrameCount() const; //get the number of frames
 		sf::Texture* GetTexture() const;
-		
+
+		bool IsReversed() const; //is the animation order reversed?
+	
 	private:
 
 		float _baseFrameTime; //default time each frame displays for
 		std::vector<unsigned int> _frameTime; //vector of lengths of times the frames display for in units of the base frame time
 		std::vector<sf::IntRect> _frames; //Array of IntRects designating frames	
 		sf::Texture* _texture;
+
+		//let's get some more animation properties going here
+		//just for experimental purposes, brainstorming really
+		bool _reversed; //should we play it backwards?  Managed in the GetFrame method
 
 };
 
@@ -53,7 +60,7 @@ class MultiAnimation { //simple conatainer holding multiple animations, higher l
 			MultiAnimation();
 			~MultiAnimation();
 
-			void Add(std::string name, Animation Animation); //Add an animation to the stack
+			void Add(std::string name, Animation& Animation); //Add an animation to the stack
 			void Remove(std::string name); //Remove an animation
 
 			Animation& Get(std::string name); //get a reference to an animation by name
