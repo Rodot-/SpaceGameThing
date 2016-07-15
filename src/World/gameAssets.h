@@ -34,19 +34,13 @@ class GameAsset { //generic game asset class
 
 	protected:
 
-		sf::Sprite& GetSprite(); //get the sprite object
-		sf::Texture& GetTexture(); //the the texture object
-
-	private:
-
-		bool _collidable;  //can we collide with this object?
+		sf::Sprite& GetSprite(); //get the sprite object TODO: remove this
+		sf::Texture& GetTexture(); //the the texture object TODO: ditto
 		bool _isLoaded; //is the object loaded into memory?
 		std::string _filename; //origin file
+		bool _collidable;  //can we collide with this object?
 		sf::Sprite _sprite; //the sprite representing this object
-		sf::Texture _texture; //the image for the sprite
-		//possibly add a map of animations?  Default would be idle (none)
-		//Probably best to leave this for a subclass
-
+		sf::Texture _texture; //the image for the sprite, might not need this
 };
 
 #pragma once
@@ -103,6 +97,34 @@ class PhysicalAsset : public GameAsset {
 	private:
 
 
+};
+
+class DynamicAsset : public PhysicalAsset { //basically, something physical with an animation
+
+	public:
+
+		DynamicAsset();
+		~DynamicAsset();
+
+		virtual void Update(float elapsedTime);
+		virtual void Load(std::string filename); //load a sprite script or something, for now, make it simple
+		//virtual void Interact(GameAsset& other) = 0; //quantify some sort of interaction
+		//commented out until I refine the classes a bit more
+		
+	protected:
+
+		virtual void AddAnimation(std::string name, Animation& animation); //add an animation
+		//can only be done by the load function
+		//later make it take a const Animation&, but we'll have to go through the code an change this
+		//everywhere
+		virtual void SetAnimation(std::string name); //set the current animation
+		virtual void Animate(float elapsedTime); //This will go inside the update method
+
+	//private: only until the animation registry is done!
+
+		MultiAnimation _anims;
+		Animator _animator;
+	
 };
 
 #endif

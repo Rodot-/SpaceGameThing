@@ -13,7 +13,7 @@ GameAsset::~GameAsset(void) {}
 
 void GameAsset::Load(std::string filename) {
 
-	_texture = TextureRegistry::Get(filename);
+	_texture = GameRegistry::GetTexture(filename);
 	_isLoaded = true;
 	_filename = filename;
 	_sprite.setTexture(_texture);	
@@ -156,6 +156,46 @@ void PhysicalAsset::setPhysVec(float* vec) {
 	delete _physVec;
 	_physVec = vec;
 }
+
+//Dynamic (animated) assets
+DynamicAsset::DynamicAsset(void) {};
+DynamicAsset::~DynamicAsset(void) {};
+
+void DynamicAsset::Update(float elapsedTime) {
+
+	PhysicalAsset::Update(elapsedTime);
+	Animate(elapsedTime);
+
+}
+
+void DynamicAsset::Load(std::string filename) { //For Testing Purposes only, Ideally, this will be your parser
+	//AGAIN, THIS IS A TEST, DONT USE THIS
+	
+
+} 
+
+void DynamicAsset::AddAnimation(std::string name, Animation& animation) {
+
+	_anims.Add(name, animation);
+}
+
+void DynamicAsset::SetAnimation(std::string name) {
+
+	Animation* newAnim = &_anims.Get(name);	
+	if ( newAnim->GetTexture() != _animator.GetAnimation()->GetTexture())//TODO: figure out a better way
+		_sprite.setTexture(*newAnim->GetTexture()); //TODO: Ditto
+	_animator.Play(*newAnim);
+}
+
+void DynamicAsset::Animate(float elapsedTime) {
+
+	_animator.Update(elapsedTime);
+	if (_animator.FrameReady() )
+		_sprite.setTextureRect(_animator.GetCurrentFrame());
+}
+
+
+
 
 
 
