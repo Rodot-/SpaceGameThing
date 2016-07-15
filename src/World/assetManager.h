@@ -20,7 +20,7 @@ class AssetManager {
 		GameAsset* Get(std::string name) const; //get an object by name
 
 		void DrawAll(sf::RenderWindow& window); //Draw all contained assets
-
+		
 	private:
 
 		std::map<std::string, GameAsset*> _gameAssets; //game assets in this class
@@ -31,6 +31,7 @@ class AssetManager {
 		};
 };
 
+#pragma once
 class PhysicsManager { //should this manage collisions or should the classes do this?
 
 	public:
