@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "gameAssets.h"
+#include "Worlds.h"
 
 enum DangerLevel {BARREN, QUIET, CALM, ACTIVE, HAZARDOUS, DEADLY};
 enum Interaction {NONE, HOST, FREE};
@@ -34,16 +35,21 @@ class HeavenlyBody : public PhysicalAsset {
 		DangerLevel _risk; //
 
 };
-/*
-class Planet : public HeavenlyBody {
 
+class Planet : public HeavenlyBody, public World { 
+	/*A planet is an explorable heavenly body that
+	also contains all of the information to set up  
+	and act as a surface world. I might have it subclass
+	a more specific world type, but for now, we'll just
+	keep it generic as a placeholder 
+	*/
 
 	public:
 
 	private:
 
 };
-
+/*
 
 class System : public HeavenlyBody { //star/planet system that helps to manage physics, each one is itself a heavenly body
 

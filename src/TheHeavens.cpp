@@ -6,7 +6,7 @@ HeavenlyBody::HeavenlyBody(void) { }
 HeavenlyBody::HeavenlyBody(float radius, float mass, DangerLevel risk) {
 
 	_radius = radius;
-	GetSprite().setScale(_radius, _radius);
+	_sprite.setScale(_radius, _radius);
 	_mass = mass;
 	_risk = risk;
 }
