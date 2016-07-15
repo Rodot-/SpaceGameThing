@@ -2,36 +2,64 @@
 #define REGISTRIES_H
 
 #include "SFML/Graphics.hpp"
-#include <string>
-#include <vector>
+#include "../Anim/AnimationBase.h"
+
 #include <stdio.h>
 
-class GameRegistry { //class conataining all of the game registries
+//Idea, just create a registry template, then build static global managers
 
-}; //not sure if I want this though
 #pragma once
-class TextureRegistry { //Class that manages and contains all of the textures used by the game
-//not sure if we're going to keep this as a global method rather than having some world initialization class
-
+template <class T>
+class Registry {
 
 	public:
-	
-		//TextureRegistry();
-		//~TextureRegistry();			
 
-		sf::Texture& operator[](std::string);
-		static bool Contains(std::string); //check if a texture if contained in the class
-		static sf::Texture& Get(std::string); //get a texture or load it if we can't
+		Registry();
+		
+		T& Get(std::string name); //get an item by name, load it if it does not exist
+		bool Contains(std::string) const;
+
+	protected:
+
+		virtual void Load(std::string) = 0; //Load item, only the registry can do it though
+		std::map<std::string, T> _contents; //so original, I know
+	
+};
+
+#pragma once
+class TextureRegistry : public Registry<sf::Texture> {
+
+	protected:
+	
+		void Load(std::string);
+
+}; //registry for textures
+
+#pragma once
+class AnimationRegistry : public Registry<Animation> {
+
+	protected:
+
+		void Load(std::string);
+}; //registry for animations
+
+
+#pragma once
+class GameRegistry { //class conataining all of the game registries
+
+	public:
+
+		static sf::Texture& GetTexture(std::string name); //grab a texture 
+		static Animation& GetAnimation(std::string name); //grab an animation
 
 	private:
 
-		static void Load(std::string); //load a texture (Get manages it in front end)
-		static std::map<std::string, sf::Texture> _textures; //registry of textures
-	
-};
-
-class AnimationRegistry { //Class that holds all of the animations
+		static TextureRegistry _textureRegistry; //The texture registry
+		static AnimationRegistry _animationRegistry; //The Animation registry 
 
 
-};
+
+}; //not sure if I want this though
+
+
 #endif
