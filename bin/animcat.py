@@ -29,8 +29,20 @@ args:
 '''
 
 import sys, re
-from PIL import Image
-import numpy as np
+
+#make sure that the user has the proper libraries installed
+try:
+	from PIL import Image
+except ImportError as e:
+	print e
+	print "Python Image Library Required, Please Install Through pip or Online"
+	exit(1)
+try: 
+	import numpy as np
+except ImportError as e:
+	print e
+	print "Numpy Required, Please Install Through pip or Online"
+	exit(1)
 
 if len(sys.argv) == 1: #make sure we at least have some arguments
 	print "No Arguments Specified.  Try using --help for help"
