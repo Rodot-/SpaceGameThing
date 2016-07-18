@@ -14,7 +14,7 @@ output: .png file contents to be piped into a file
 args:
    -c				column concatenate
    -r				row concatenate (default)
-   -f				flip frames and frame order
+   -f				flip frames
    -s[N]			scale by a factor of N 
    --help 			display (this) help message 
    --example [N]	display example N as a tutorial. N can be any of the following:
@@ -22,7 +22,7 @@ args:
 		1				how to save the output
 		2				how to concatenate multiple files
 		3				how to flip an image
-		4				how to flip and reverse a sequence of images (flip animation)
+		4				how to flip a sequence of images (flip animation)
 		5				how to resize an image
 		6				how to use multiple commands at once
 		7				how to use multiple runs for more complex tasks
@@ -112,8 +112,7 @@ for arg in args:
 	elif arg == 'f': #if flip, flip the images and their order (make l/r animations)
 	
 		image_func = lambda x: x[:,::-1,:] #function that flips the images horizontally
-		images = map(image_func, images) #flip each image and the order of the images
-		if (len(images) > 1): images = reversed(images)
+		images = map(image_func, images) #flip each image
 
 	elif arg.startswith('s'): #do some up/downsampling
 

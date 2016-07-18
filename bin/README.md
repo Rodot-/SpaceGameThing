@@ -39,9 +39,9 @@ Examples:
 			$ python animcat.py -f [fileName] > [outFile]
 
 	4. Flipping an Animation
-		A sequence of images can also be flipped, and their
-		order will be reversed. This is useful for making 
-		left and right versions of the same animation
+		A sequence of images can also be flipped. 
+		This is useful for making left and right 
+		versions of the same animation
 
 			$python animcat.py -f [file1] [file2] ... > [outFileName]
 
@@ -65,7 +65,7 @@ Examples:
 
 			$ python animcat.py -c -s0.5 [file1] [file2] ... > [outFileName] 
 
-		To concatenate a sequence of images, flip each one, reverse their order,
+		To concatenate a sequence of images, flip each one,
 		and up scale the resulting image by a factor of 2 (sqrt(2) in each direction)
 
 			$ python animcat.py -r -f -s1.41 [file1] [file2] ... > [outFileName]
