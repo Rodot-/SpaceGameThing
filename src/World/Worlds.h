@@ -17,7 +17,7 @@ class World {
 
 };
 
-
+/*
 class Surface : public World {
 
 	public:
@@ -62,7 +62,7 @@ class UninhabitedWorld : public Surface { //empty surface world
 
 		DangerLevel _danger;
 };
-
+*/
 class Universe : public World {
 
 	public:
