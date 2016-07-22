@@ -18,6 +18,7 @@ class HeavenlyBody : public PhysicalAsset {
 		HeavenlyBody(float radius, float mass, DangerLevel risk);
 	
 		virtual ~HeavenlyBody();
+		virtual void Load(std::string filename);
 
 		void SetRadius(float radius);
 		float GetRadius() const;
