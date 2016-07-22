@@ -245,9 +245,8 @@ else:
 
 print "Loading Images..."
 images = [np.array(Image.open(i)) for i in image_files] #open all of the images after the ith term
-
 #test is all images are the same size
-assert (reduce(lambda x,y: x == y, map(np.shape, images))), "Not all images have the same dimensions!"
+assert (reduce(lambda x,y: x if x == y else False, map(np.shape, images))), "Not all images have the same dimensions!"
 
 for arg in args:
 
