@@ -6,7 +6,7 @@
 
 
 //General Game asset
-GameAsset::GameAsset(void) : _isLoaded(false), _collidable(false) {
+GameAsset::GameAsset(void) : _isLoaded(false), _collidable(false){//, _collisionMethod(RECT) {
 }
 
 GameAsset::~GameAsset(void) {}
@@ -86,6 +86,12 @@ bool GameAsset::IsCollidable(void) const {
 	return _collidable;
 }
 
+
+collision::type GameAsset::GetCollision(void) const {
+
+	return _collisionMethod;
+}
+
 //Physical Assets (Physics Objects)
 PhysicalAsset::PhysicalAsset(void) {
 	_physVec = (float*)malloc(sizeof(float)*_ndim);
@@ -112,6 +118,11 @@ void PhysicalAsset::Update(float elapsedTime) {
 void PhysicalAsset::Draw(sf::RenderWindow& window) {
 	GameAsset::Draw(window);
 }
+
+void PhysicalAsset::Load(std::string filename) {
+	GameAsset::Load(filename);
+}
+
 
 
 sf::Vector2f PhysicalAsset::GetVelocity(void) { 

@@ -8,6 +8,11 @@
 #include <stdlib.h>
 
 
+namespace collision { //namespace containing various collision specific properties
+
+	enum type {RADIAL, RECT, PIXEL, CUSTOM}; //types of possible collision methods specific to each object
+};
+
 #pragma once
 class GameAsset { //generic game asset class
 
@@ -25,12 +30,14 @@ class GameAsset { //generic game asset class
 		virtual void SetPosition(float x, float y); //set the position of the object on the screen
 		virtual void SetColor(const sf::Color& color);
 		virtual void SetOrigin(float x, float y);		
+		virtual float GetRadius() const { return GetGlobalBounds().width/2; }; //temporary
 
 		virtual sf::Vector2f GetPosition() const; //get the position of the sprite
 
 		bool IsLoaded() const;
 		bool IsCollidable() const;
 		void SetCollidable(bool state);
+		collision::type GetCollision() const;
 
 	protected:
 
@@ -38,9 +45,12 @@ class GameAsset { //generic game asset class
 		sf::Texture& GetTexture(); //the the texture object TODO: ditto
 		bool _isLoaded; //is the object loaded into memory?
 		std::string _filename; //origin file
-		bool _collidable;  //can we collide with this object?
 		sf::Sprite _sprite; //the sprite representing this object
 		sf::Texture _texture; //the image for the sprite, might not need this
+		collision::type _collisionMethod; //how are collisions calculated
+		bool _collidable;  //can we collide with this object?
+		
+
 };
 
 #pragma once
@@ -53,6 +63,7 @@ class PhysicalAsset : public GameAsset {
 
 		virtual void Update(float elapsedTime); //update the physics
 		virtual void Draw(sf::RenderWindow& window); //draw the physobj
+		virtual void Load(std::string filename); //load the object
 
 		sf::Vector2f GetVelocity(); //get 2D linear velocity
 		float GetOmega() const; //get angular velocity
