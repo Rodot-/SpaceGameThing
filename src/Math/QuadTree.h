@@ -9,6 +9,7 @@
 #include "SFML/Graphics.hpp"
 #include "../World/WorldGeometry.h"
 #include <vector>
+#include <set>
 
 class QuadTree {
 
@@ -21,7 +22,9 @@ class QuadTree {
 
 		std::vector<QuadTree*> GetRegions(sf::FloatRect box) const; //get regions that intersect this box
 		std::vector<WorldGeometry*> GetGeometryVector() const; //return _contents
-		std::vector<WorldGeometry*> GetContents(sf::FloatRect box) const; //get the vector of objects that are contained in the smallest quadrant intersecting this box
+		std::vector<WorldGeometry*>::iterator GetBegin(); //return iterator to _contents.begin()
+		std::vector<WorldGeometry*>::iterator GetEnd(); //return iterator to _contents.end()
+		std::set<WorldGeometry*> GetContents(sf::FloatRect box) const; //get the vector of objects that are contained in the smallest quadrant intersecting this box
 		//NOTE: something is considered to be contained within a quadrant if it intersects that quadrant
 
 		void AddGeometry(WorldGeometry& geometry); //add a world geometry object to the list
@@ -39,13 +42,6 @@ class QuadTree {
 		std::vector<WorldGeometry*> _contents; //world geometry objects contained in this quadrant
 
 };
-
-
-
-class DynamicQuadTree
-
-
-
 
 #endif
 

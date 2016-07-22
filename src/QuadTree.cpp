@@ -52,29 +52,23 @@ std::vector<QuadTree*> QuadTree::GetRegions(sf::FloatRect box) const {
 
 std::vector<WorldGeometry*> QuadTree::GetGeometryVector(void) const { return _contents; }
 
-std::vector<WorldGeometry*> QuadTree::GetContents(sf::FloatRect box) const {
+std::vector<WorldGeometry*>::iterator QuadTree::GetBegin(void) { return _contents.begin(); }
+
+std::vector<WorldGeometry*>::iterator QuadTree::GetEnd(void) { return _contents.end(); }
+
+std::set<WorldGeometry*> QuadTree::GetContents(sf::FloatRect box) const {
 
 	std::vector<QuadTree*> trees = GetRegions(box);	
-	std::vector<WorldGeometry*> geometries; //the vector of world geometries
+	std::set<WorldGeometry*> geometries; //set of world geometries
 	//now we create the list of geometries
 	//set up some iterators
-	std::vector<QuadTree*>::iterator qTree_itr; //iterator for QuadTrees
-	std::vector<WorldGeometry*>::iterator worldGeom_itr; //iterator for geometries in QuadTrees
-	std::vector<WorldGeometry*>::iterator finalGeom_itr; //iterator for final vector
-	bool contained = false; //is the geometry contained in our vector already?
-	for (qTree_itr = trees.begin(); qTree_itr != trees.end(); ++qTree_itr) {
-		std::vector<WorldGeometry*> contents = (*qTree_itr)->GetGeometryVector();
-		for (worldGeom_itr = contents.begin(); worldGeom_itr != contents.end(); ++worldGeom_itr) {
-			contained = false;
-			for (finalGeom_itr = geometries.begin(); finalGeom_itr != geometries.end(); ++finalGeom_itr) {
-				if (*worldGeom_itr == *finalGeom_itr) {
-					contained = true;
-					break;
-				}
-			}
-			if (!contained) {
-				geometries.push_back(*worldGeom_itr);
-			}
+	std::vector<QuadTree*>::iterator qt_itr; //iterator for QuadTrees
+	std::vector<WorldGeometry*>::iterator geom_itr; //iterator for geometries in QuadTrees
+	std::vector<WorldGeometry*>::iterator end; //end of contents vector
+	for (qt_itr = trees.begin(); qt_itr != trees.end(); ++qt_itr) {
+		end = (*qt_itr)->GetEnd(); //set the end of the iterator
+		for (geom_itr = (*qt_itr)->GetBegin(); geom_itr != end; ++geom_itr) {
+			geometries.insert(*geom_itr); //add the iterator's value to the set
 		}	
 	}
 	return geometries;
