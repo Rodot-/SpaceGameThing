@@ -22,6 +22,11 @@ inline bool RadialRect(const sf::Vector2f& p1, float r1, const sf::FloatRect& R1
 inline bool RadialLine(const sf::Vector2f& p1, float r1, const sf::Vector2f& A, const sf::Vector2f& B);
 /* see if a line intersects of circle */
 
+inline bool LineLine(const sf::Vector2f& a1, const sf::Vector2f& a2, const sf::Vector2f& b1, const sf::Vector2f& b2); 
+/*see if two lines defined as A = {a1, a2}, B = {b1, b2} intesect one another*/
+
+inline bool ConvexConvex(const sf::ConvexShape& c1, const sf::ConvexShape& c2);
+/*see if two convex shapes intersect one another*/
 
 bool HaveCollided(GameAsset* A, GameAsset* B); //check if any two assets have collided
 
