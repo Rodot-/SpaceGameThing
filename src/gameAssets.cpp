@@ -10,7 +10,6 @@
 
 
 //some macros to help out with making the code shorter when casting void* hitboxes
-
 //convert to a radial hitbox
 #define HBRA static_cast<HitBoxBase<std::pair<sf::Vector2f, float> >*>
 //convert to a rect hitbox
@@ -141,6 +140,7 @@ bool GameAsset::HasCollided(GameAsset* other) const {
 	}
 	for (int i = 0; i < 2; ++i) {
 		sf::Vector2f pos = assets[i]->GetPosition();
+		
 		switch (colTypes[i]) {
 			case 0:
 				HBRA(boxes[i])->UpdateCenter(pos.x, pos.y);
@@ -153,7 +153,6 @@ bool GameAsset::HasCollided(GameAsset* other) const {
 				break;
 		}
 	}
-
 	switch (colTypes[0]) {
 		case 0:
 			switch (colTypes[1]) {
@@ -202,7 +201,9 @@ bool GameAsset::HasCollided(GameAsset* other) const {
 		//	}
 		//break;
 	}
+	
 	return false;
+
 }
 
 
