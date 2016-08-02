@@ -1,16 +1,18 @@
 //Test parsing script written in c
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
 struct AnimParams {
 
-	char* TileSheet;
-	int FPS, height, width, count, method_attr;
-	char* method; //row, column
+	char* TileSheet; //name of the tile sheet
+	char* order; //order of the frames in the tile sheet
+	int FPS, height, width, count;
+	bool chiral; //are the left and right animations contained?
 };
 
-enum TYPES {TUPLE, INT, STRING};
+enum TYPES {TUPLE, INT, STRING, BOOL};
 
 TYPES getType(const char* item) {
 
@@ -18,6 +20,8 @@ TYPES getType(const char* item) {
 		return STRING;
 	else if ((strchr(item, ')') != NULL) && (strchr(item, ')') != NULL))
 		return TUPLE;
+	else if (strpbrk(item, "True") || strpbrk(item, "False"))
+		return BOOL;
 	else
 		return INT;
 }
@@ -32,6 +36,7 @@ void ParseAnim(const char* filename) {
 	char param[16];
 	char line[256];
 	printf("Parsing...\n");
+	AnimParams params;
 	while (fgets(line, 256, file) != NULL) {
 
 		if (strchr(line, ':') == NULL) { continue; } //really, don't do this
@@ -54,10 +59,29 @@ void ParseAnim(const char* filename) {
 			value++;
 		}
 		printf("%s is %s\n", param, value);
+		if (strpbrk(param, "File"))
+			params.TileSheet = value;
+		else if (strpbrk(param, "FPS"))
+			params.FPS = atoi(value);
+		else if (strpbrk(param, "Count"))
+			params.count = atoi(value);
+		else if (strpbrk(param, "Height"))
+			params.height = atoi(value);
+		else if (strpbrk(param, "Width"))
+			params.width = atoi(value);
+		else if (strpbrk(param, "Order"))
+			params.order = value;
+		else if (strpbrk(param, "Chiral")) {
+			if (strpbrk(value, "True"))
+				params.chiral = true;
+			else if (strpbrk(value, "False"))
+				params.chiral = false;
+		}
+		/*
 		switch (getType(value)) {
 
-			case TUPLE:
-				printf("Type is Tuple\n");
+			case BOOL:
+				printf("Type is Bool\n");
 				break;
 			case INT:
 				printf("Type is Int\n");
@@ -66,7 +90,7 @@ void ParseAnim(const char* filename) {
 				printf("Type is String\n");
 				break;
 		}
-
+		*/
 
 	}
 }
@@ -74,6 +98,9 @@ void ParseAnim(const char* filename) {
 
 int main(void) {
 
+	ParseAnim("../bin/scripts/animation/spaceManWalk.anim");
+	ParseAnim("../bin/scripts/animation/enemyWalk.anim");
+	ParseAnim("../bin/scripts/animation/spaceManBoil.anim");
 	ParseAnim("../bin/scripts/animation/test.anim");
 	return 0;
 }
