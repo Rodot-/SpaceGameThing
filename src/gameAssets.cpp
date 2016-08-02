@@ -2,12 +2,36 @@
 #include "World/gameAssets.h"
 #include "World/Forces.h"
 #include "Math/integrators.h"
+#include "World/HitBox.h"
 #include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+//some macros to help out with making the code shorter when casting void* hitboxes
+//convert to a radial hitbox
+#define HBRA static_cast<HitBoxBase<std::pair<sf::Vector2f, float> >*>
+//convert to a rect hitbox
+#define HBRE static_cast<HitBoxBase<sf::FloatRect>*>
+//convert to a convex hitbox
+#define HBCV static_cast<HitBoxBase<sf::ConvexShape>*>
+//convert to a pixel hitbox
+//#define HBPX static_cast<HitBoxBase<sf::Image>*>
+
+//now same as above but with vector boxes
+//convert to a radial hitbox
+//#define HBVRA static_cast<HitBoxBase<std::vector<std::pair<sf::Vector2f, float> > >*>
+//convert to a rect hitbox
+//#define HBVRE static_cast<HitBoxBase<std::vector<sf::FloatRect> >*>
+//convert to a convex hitbox
+//#define HBVCV static_cast<HitBoxBase<std::vector<sf::ConvexShape> >*>
+//convert to a pixel hitbox
+//#define HBVPX static_cast<HitBoxBase<std::vector<sf::Image> >*>
 
 
 //General Game asset
-GameAsset::GameAsset(void) : _isLoaded(false), _collidable(false){//, _collisionMethod(RECT) {
-}
+GameAsset::GameAsset(void) : _isLoaded(false), _collidable(false) { }
 
 GameAsset::~GameAsset(void) {}
 
@@ -16,7 +40,8 @@ void GameAsset::Load(std::string filename) {
 	_texture = GameRegistry::GetTexture(filename);
 	_isLoaded = true;
 	_filename = filename;
-	_sprite.setTexture(_texture);	
+	_sprite.setTexture(_texture);
+	_hitBox = (void*) new HitBoxBase<sf::FloatRect>(_sprite.getGlobalBounds());	
 
 	/*
 	if (_texture.loadFromFile(filename) == false) {
@@ -62,6 +87,16 @@ void GameAsset::SetOrigin(float x, float y) {
 	_sprite.setOrigin(x, y);
 }
 
+sf::Vector2f GameAsset::GetOrigin(void) const {
+
+	return _sprite.getOrigin();
+}
+
+void GameAsset::SetScale(float x, float y) {
+
+	_sprite.setScale(x,y);
+}
+
 sf::Vector2f GameAsset::GetPosition(void) const {
 	return _sprite.getPosition();
 }
@@ -86,10 +121,95 @@ bool GameAsset::IsCollidable(void) const {
 	return _collidable;
 }
 
-
 collision::type GameAsset::GetCollision(void) const {
-
 	return _collisionMethod;
+}
+
+bool GameAsset::HasCollided(GameAsset* other) const {
+
+	int colTypes[2] = {(int)(this->GetCollision()), (int)(other->GetCollision())};
+	void* boxes[2] = {this->_hitBox, other->_hitBox};
+	const GameAsset* assets[2] = {this, other};
+	if (colTypes[0] > colTypes[1]) { //sort our hit boxes
+		colTypes[0] = (int)(other->GetCollision());
+		colTypes[1] = (int)(this->GetCollision());
+		boxes[0] = other->_hitBox;
+		boxes[1] = this->_hitBox;
+		assets[0] = other;
+		assets[1] = this;
+	}
+	for (int i = 0; i < 2; ++i) {
+		sf::Vector2f pos = assets[i]->GetPosition();
+		
+		switch (colTypes[i]) {
+			case 0:
+				HBRA(boxes[i])->UpdateCenter(pos.x, pos.y);
+				break;
+			case 1:
+				HBRE(boxes[i])->UpdateCenter(pos.x, pos.y);
+				break;
+			case 2:
+				HBCV(boxes[i])->UpdateCenter(pos.x, pos.y);
+				break;
+		}
+	}
+	switch (colTypes[0]) {
+		case 0:
+			switch (colTypes[1]) {
+				case 0:
+					return HBRA(boxes[0])->HasCollided(*HBRA(boxes[1]));
+					break;
+				case 1:	
+					return HBRA(boxes[0])->HasCollided(*HBRE(boxes[1]));
+					break;
+				case 2:
+					return HBRA(boxes[0])->HasCollided(*HBCV(boxes[1]));
+					break;
+				//case 3:
+				//	return HBRA(boxes[0])->HasCollided(*HBPX(boxes[1]));
+				//	break;	
+			}
+		break;
+		case 1:
+			switch (colTypes[1]) {
+				case 1:	
+					return HBRE(boxes[0])->HasCollided(*HBRE(boxes[1]));
+					break;
+				case 2:
+					return HBRE(boxes[0])->HasCollided(*HBCV(boxes[1]));
+					break;
+				//case 3:
+				//	return HBRE(boxes[0])->HasCollided(*HBPX(boxes[1]));
+				//	break;	
+			}
+		break;
+		case 2:
+			switch (colTypes[1]) {
+				case 2:
+					return HBCV(boxes[0])->HasCollided(*HBCV(boxes[1]));
+					break;
+				///case 3:
+				//	return HBCV(boxes[0])->HasCollided(*HBPX(boxes[1]));
+				//	break;	
+			}
+		break;
+		//case 3:
+		//	switch (colTypes[1]) {
+		//		case 3:
+		//			return HBPX(boxes[0])->HasCollided(*HBPX(boxes[1]));
+		//			break;	
+		//	}
+		//break;
+	}
+	
+	return false;
+
+}
+
+
+void GameAsset::SetHitBox(void* hitbox, collision::type type) {
+	_collisionMethod = type;
+	_hitBox = hitbox;
 }
 
 //Physical Assets (Physics Objects)
@@ -103,7 +223,7 @@ PhysicalAsset::PhysicalAsset(void) {
 
 PhysicalAsset::~PhysicalAsset(void) {}
 
-void PhysicalAsset::Update(float elapsedTime) {
+void PhysicalAsset::Update(float elapsedTime) { //TODO: make a physUpdate method
 
 	/*
 	float* rhsf = (float*)malloc(sizeof(float)*_ndim);
@@ -112,7 +232,7 @@ void PhysicalAsset::Update(float elapsedTime) {
 	GetSprite().setRotation(_physVec[4]);
 	*/
 	SetPosition(_physVec[0], _physVec[1]);
-	GetSprite().setRotation(_physVec[4]);
+	_sprite.setRotation(_physVec[4]);
 }
 
 void PhysicalAsset::Draw(sf::RenderWindow& window) {
@@ -147,7 +267,7 @@ void PhysicalAsset::SetPosition(float x, float y) {
 
 	GameAsset::SetPosition(x, y);
 	_physVec[0] = x;
-	_physVec[1] =y;
+	_physVec[1] = y;
 }
 
 void PhysicalAsset::setMass(float mass) { _mass = mass; }
@@ -167,6 +287,156 @@ void PhysicalAsset::setPhysVec(float* vec) {
 	delete _physVec;
 	_physVec = vec;
 }
+//CompoundAssets (multi-component game assets)
+
+CompoundAsset::CompoundAsset(void) {}
+CompoundAsset::~CompoundAsset(void) {}
+
+void CompoundAsset::Draw(sf::RenderWindow& window) {
+
+	if (_isLoaded) {
+		for (std::map<std::string, PhysicalAsset*>::iterator it = _sections.begin(); it != _sections.end(); ++it) {
+			it->second->Draw(window);
+		}
+	}
+}
+
+void CompoundAsset::Update(float elapsedTime) {
+	PhysicalAsset::Update(elapsedTime);
+	std::map<std::string, PhysicalAsset*>::iterator itr = _sections.begin();
+	for (itr; itr != _sections.end(); ++itr) {
+		itr->second->Update(elapsedTime);
+	}
+}
+
+void CompoundAsset::Load(std::string filename) {
+    FILE* file;
+	file = fopen(filename.c_str(), "r");
+	_isLoaded = true;
+    char* start;
+    char* end;
+    char raw_line[256];
+    char line[256];
+    printf("Parsing...\n");
+    PhysicalAsset* section; //pointer to a section of the asset
+	int counter, i;
+	bool newSection = false;
+	float x, y;
+    while (fgets(raw_line, 256, file) != NULL) {
+
+    	counter = 0; 
+    	for (i = 0; raw_line[i] != '\0'; ++i) { //filter out whitespace
+        	if (!isspace((unsigned char)(raw_line[i])))
+            	line[counter++] = raw_line[i];
+    	}
+    	line[counter] = '\0';
+        if (strchr(raw_line, '#') != NULL) { //filter out comments
+            end = strchr(raw_line, '#');
+            *end = '\0';
+        }
+        if (line[0] == '[') { //define a section
+            if (strchr(line, ']') == NULL) { //make sure the syntax is correct
+                printf("Error, bad syntax in: %s\n", line);
+                exit(1);
+            }
+            *strchr(line, ']') = '\0';
+            printf("Section: %s\n", line + 1);
+			x = 0; y = 0;
+			section = new PhysicalAsset();
+			Add(std::string(line+1), *section, sf::Vector2f(0,0));
+        }
+        else if (strchr(line, ':') != NULL) { //define a param/value pair
+            end = strchr(line, ':');
+            *end = '\0';
+            if (!strcmp(line, "Texture")) {
+                printf("Got Texture: %s\n", end + 1);
+				start = end + 2;
+				*strchr(start, '\"') = '\0';
+				char fname[256] = "../";
+				printf("Here\n");
+				strcpy(fname+3,start);
+				printf("Loading %s\n", fname);
+				section->Load(fname);
+				printf("Loaded\n");
+			}
+            else if (!strcmp(line, "Offset")) {
+                printf("Got Offset: %s\n", end + 1);
+				start = end + 2;
+				end = strchr(start, ',');
+				*end = '\0';		
+				x += atof(start);
+				start = end+1;
+				*strchr(start, ')') = '\0';
+				y += atof(start);
+				section->SetOrigin(x,y);
+			}
+            else if (!strcmp(line, "Origin")) {
+                printf("Got Origin: %s\n", end + 1);
+ 				start = end + 2;
+				end = strchr(start, ',');
+				*end = '\0';		
+				x += atof(start);
+				start = end+1;
+				*strchr(start, ')') = '\0';
+				y += atof(start);
+				section->SetOrigin(x,y);           
+			}
+        }
+
+    }
+
+}
+
+bool CompoundAsset::HasCollided(GameAsset* other) const {
+	std::map<std::string, PhysicalAsset*>::const_iterator itr = _sections.begin();
+	for (itr; itr != _sections.end(); ++itr) {
+		if (itr->second->HasCollided(other))
+			return true;
+	}
+	return false;
+}
+
+void CompoundAsset::SetPosition(float x, float y) {
+
+	PhysicalAsset::SetPosition(x, y);
+	std::map<std::string, PhysicalAsset*>::iterator itr = _sections.begin();
+	for (itr; itr != _sections.end(); ++itr) {
+		itr->second->SetPosition(x, y);
+	}
+}
+
+void CompoundAsset::SetScale(float x, float y) {
+	PhysicalAsset::SetScale(x, y);
+	std::map<std::string, PhysicalAsset*>::iterator itr = _sections.begin();
+	for (itr; itr != _sections.end(); ++itr) {
+		itr->second->SetScale(x, y);
+	}
+}
+
+void CompoundAsset::Add(std::string name, PhysicalAsset& section, sf::Vector2f origin) {
+//TODO:need to set COM each time an item is added
+	section.SetOrigin(section.GetOrigin().x+origin.x, section.GetOrigin().y+origin.y);
+	_sections.insert(std::pair<std::string, PhysicalAsset*>(name, &section));
+}
+
+
+void CompoundAsset::Remove(std::string name) {
+
+	std::map<std::string, PhysicalAsset*>::iterator results = _sections.find(name);
+	if(results != _sections.end() ) {
+		delete results->second;
+		_sections.erase(results);
+	}
+
+}
+
+PhysicalAsset* CompoundAsset::Get(std::string name) {
+
+	std::map<std::string, PhysicalAsset*>::const_iterator results = _sections.find(name);
+	if (results == _sections.end() )
+		return NULL;
+	return results->second;
+}
 
 //Dynamic (animated) assets
 DynamicAsset::DynamicAsset(void) {};
@@ -181,8 +451,6 @@ void DynamicAsset::Update(float elapsedTime) {
 
 void DynamicAsset::Load(std::string filename) { //For Testing Purposes only, Ideally, this will be your parser
 	//AGAIN, THIS IS A TEST, DONT USE THIS
-	
-
 } 
 
 void DynamicAsset::AddAnimation(std::string name, Animation& animation) {
@@ -193,8 +461,9 @@ void DynamicAsset::AddAnimation(std::string name, Animation& animation) {
 void DynamicAsset::SetAnimation(std::string name) {
 
 	Animation* newAnim = &_anims.Get(name);	
-	if ( newAnim->GetTexture() != _animator.GetAnimation()->GetTexture())//TODO: figure out a better way
+	if ( newAnim->GetTexture() != _sprite.getTexture()){//TODO: figure out a better way
 		_sprite.setTexture(*newAnim->GetTexture()); //TODO: Ditto
+	}
 	_animator.Play(*newAnim);
 }
 
@@ -205,7 +474,9 @@ void DynamicAsset::Animate(float elapsedTime) {
 		_sprite.setTextureRect(_animator.GetCurrentFrame());
 }
 
-
+void DynamicAsset::Interact(GameAsset& other) {
+/*TODO: this*/
+}
 
 
 

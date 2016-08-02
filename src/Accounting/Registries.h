@@ -17,11 +17,12 @@ class Registry {
 		Registry();
 		
 		T& Get(std::string name); //get an item by name, load it if it does not exist
+		bool Set(std::string, T& item); //set an item and return an error code (true/false)
 		bool Contains(std::string) const;
 
 	protected:
 
-		virtual void Load(std::string) = 0; //Load item, only the registry can do it though
+		virtual bool Load(std::string) = 0; //Load item, only the registry can do it though
 		std::map<std::string, T> _contents; //so original, I know
 	
 };
@@ -31,7 +32,7 @@ class TextureRegistry : public Registry<sf::Texture> {
 
 	protected:
 	
-		void Load(std::string);
+		bool Load(std::string);
 
 }; //registry for textures
 
@@ -40,7 +41,7 @@ class AnimationRegistry : public Registry<Animation> {
 
 	protected:
 
-		void Load(std::string);
+		bool Load(std::string);
 }; //registry for animations
 
 
@@ -50,7 +51,9 @@ class GameRegistry { //class conataining all of the game registries
 	public:
 
 		static sf::Texture& GetTexture(std::string name); //grab a texture 
+		static bool SetTexture(std::string name, sf::Texture& texture); //set a texture and return an error code
 		static Animation& GetAnimation(std::string name); //grab an animation
+		static bool SetAnimation(std::string name, Animation& animation); //grab an animation
 
 	private:
 

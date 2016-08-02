@@ -9,6 +9,17 @@ sf::Texture& GameRegistry::GetTexture(std::string name) {
 	return GameRegistry::_textureRegistry.Get(name);
 }
 
+bool GameRegistry::SetTexture(std::string name, sf::Texture& texture) {
+
+	return GameRegistry::_textureRegistry.Set(name, texture);
+	
+}
+
+bool GameRegistry::SetAnimation(std::string name, Animation& animation) {
+
+	return GameRegistry::_animationRegistry.Set(name, animation);
+}
+
 Animation& GameRegistry::GetAnimation(std::string name) {
 
 	return GameRegistry::_animationRegistry.Get(name);
@@ -32,6 +43,21 @@ T& Registry<T>::Get(std::string name) {
 	return _contents[name];
 }
 
+
+template <class T>
+bool Registry<T>::Set(std::string name, T& item) {
+
+	if (Contains(name)){}
+	else {
+		if (!Load(name))
+			return false;
+	}
+	item = _contents[name];
+	return true;
+}
+
+
+
 template <class T>
 bool Registry<T>::Contains(std::string name) const {
 	
@@ -42,17 +68,15 @@ bool Registry<T>::Contains(std::string name) const {
 }
 
 
-
-void TextureRegistry::Load(std::string name) {
+bool TextureRegistry::Load(std::string name) {
 
 		sf::Texture t;
-		if (t.loadFromFile(name) )
+		if (t.loadFromFile(name) ) {
 			_contents[name] = t;
-		else {
-			printf("ERROR: Texture Not Found!\n");
-			printf("       Could Not Find \"%s\"\n", name.c_str());
-			exit(1);
+			return true;
 		}
+		else
+			return false;
 }
 
 struct AnimParams {
@@ -62,7 +86,7 @@ struct AnimParams {
 	std::string method; //row, column
 };
 
-void AnimationRegistry::Load(std::string name) {
+bool AnimationRegistry::Load(std::string name) {
 	//Lets do a little test using my format
 	AnimParams params;
 	std::ifstream animConfig(name.c_str());
@@ -70,9 +94,10 @@ void AnimationRegistry::Load(std::string name) {
 	std::string param;
 	std::string value;
 	bool onValue = false;
+
 	while (std::getline(animConfig, line)) {
-		char p[16];
-		char v[16];
+		char p[64];
+		char v[64];
 		//sscanf(line.c_str(), "%s:", p);
 		sscanf(line.c_str(), "%[^: ]", p);
 		param = p;
@@ -110,6 +135,7 @@ void AnimationRegistry::Load(std::string name) {
 	newAnim.SetTexture(GameRegistry::GetTexture("../"+params.TileSheet));
 	newAnim.SetBaseFrameTime(1.0/params.FPS);	
 	_contents[name] = newAnim;
+	return true;
 
 } //animation script parser, adds an animation object
 
