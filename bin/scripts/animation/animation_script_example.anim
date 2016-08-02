@@ -37,7 +37,7 @@ FrameDimension: (128, 128)    # (height, width)
 
 FrameLocations: [(0,0),(1,0),(2,0)...(47,0)] # (x,y) coordinates of the tiles in the texture
 
-
+Chiral: True #are the left and right animations included?
 
 
 
