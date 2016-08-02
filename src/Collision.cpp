@@ -1,34 +1,6 @@
-
 #include "Math/Collision.h"
-
-inline bool RadialRadial(const sf::Vector2f& p1, float r1, const sf::Vector2f& p2, float r2) {
-
-	return (hypotf(p1.x-p2.x, p1.y-p2.y) < (r1 + r2));
-}
-
-inline bool RectRect(const sf::FloatRect& R1, const sf::FloatRect& R2) {
-	
-	return R1.intersects(R2);
-}
-
-inline bool RadialRect(const sf::Vector2f& p1, float r1, const sf::FloatRect& R1) {
-
-	sf::Vector2f A;
-	sf::Vector2f B;
-	sf::Vector2f C;
-	sf::Vector2f D;
-	A.x = R1.left; A.y = R1.top;
-	B.x = A.x + R1.width; B.y = A.y;
-	C.x = B.x; C.y = B.y + R1.height;
-	D.x = A.x; D.y = C.y;
-	return (RadialLine(p1,r1,A,B) || RadialLine(p1,r1,B,C) || RadialLine(p1,r1,C,D) || RadialLine(p1,r1,D,A));
-
-}
-
-inline bool RadialLine(const sf::Vector2f& p1, float r1, const sf::Vector2f& A, const sf::Vector2f& B) {
-
-	return (abs((B.y-A.y)*p1.x-(B.x-A.x)*p1.y+B.x*A.y-B.y*A.x)/(sqrt(pow((B.y-A.y),2)+pow((B.x-A.x),2))) < r1);
-}
+#include "Math/vmath.h"
+#include "World/gameAssets.h"
 
 bool HaveCollided(GameAsset* A, GameAsset* B) {
 
