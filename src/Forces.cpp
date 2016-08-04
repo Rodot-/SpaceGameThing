@@ -58,19 +58,23 @@ void gravitationalRHSF(float t, float f[], float rhsf[], std::vector<PhysicalAss
 		rhsf[i] = 0;
 	}
 	for (int i = 0; i < physVec.size(); ++i) {
-		rhsf[6*i] = f[6*i+2];
-		rhsf[6*i+1] = f[6*i+3];
-		rhsf[6*i+4] = f[6*i+5];
-		for (int j = i+1; j < physVec.size(); ++j) {
-			Fg = gravityVector(physVec[i], physVec[j]);
+		if (physVec[i]->isPhysical()) {
+			rhsf[6*i] = f[6*i+2];
+			rhsf[6*i+1] = f[6*i+3];
+			rhsf[6*i+4] = f[6*i+5];
 
-			rhsf[6*i+2] += Fg[0]/physVec[i]->getMass();
-			rhsf[6*i+3] += Fg[1]/physVec[i]->getMass();
+			for (int j = i+1; j < physVec.size(); ++j) {
+				if (physVec[j]->isPhysical()) {
+					Fg = gravityVector(physVec[i], physVec[j]);
 
-			rhsf[6*j+2] -= Fg[0]/physVec[j]->getMass();
-			rhsf[6*j+3] -= Fg[1]/physVec[j]->getMass();
-			delete Fg;
+					rhsf[6*i+2] += Fg[0]/physVec[i]->getMass();
+					rhsf[6*i+3] += Fg[1]/physVec[i]->getMass();
+
+					rhsf[6*j+2] -= Fg[0]/physVec[j]->getMass();
+					rhsf[6*j+3] -= Fg[1]/physVec[j]->getMass();
+					delete Fg;
+				}
+			}
 		}
 	}	
-
 }

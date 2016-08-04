@@ -83,7 +83,6 @@ bool HitBoxBase<T>::HasCollided(const HitBoxBase<T2>& other) const {
 template <> 
 template <class T2>
 bool HitBoxBase<std::pair<sf::Vector2f, float> >::_hasCollided(const T2& other) const {
-	printf("Circle\n");
 	return CollisionDetected(_hbox, other);
 	//return true;
 };
@@ -91,14 +90,14 @@ bool HitBoxBase<std::pair<sf::Vector2f, float> >::_hasCollided(const T2& other) 
 template <> 
 template <class T2>
 bool HitBoxBase<sf::ConvexShape>::_hasCollided(const T2& other) const {
-	//return CollisionDetected(_hbox, other);
+	return CollisionDetected(_hbox, other);
 	return true;
 };
 
 template <> 
 template <class T2>
 bool HitBoxBase<sf::FloatRect>::_hasCollided(const T2& other) const {
-	//return CollisionDetected(_hbox, other);
+	return CollisionDetected(_hbox, other);
 	return true;
 };
 

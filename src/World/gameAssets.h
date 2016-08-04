@@ -81,8 +81,11 @@ class PhysicalAsset : public GameAsset {
 		float* getCOM() const;
 		float* getPhysVec() const;
 
+		bool isPhysical() const;
+
 		//setters
 		virtual void SetPosition(float x, float y);
+
 		void setMass(float mass);
 		void setMu_k(float mu_k);
 		void setMu_s(float mu_s);
@@ -98,6 +101,8 @@ class PhysicalAsset : public GameAsset {
 		void setCOM(float x, float y);
 		void setPhysVec(float* vec); //set the pointer location of the physics vector
 
+		void setPhysical(bool state);
+
 	protected:
 
 		sf::Vector2f _velocity;
@@ -106,6 +111,7 @@ class PhysicalAsset : public GameAsset {
 		static const unsigned int _ndim = 6; //6 physical dimensions, x, y, vx, vy, theta, omega
 		float* _physVec; //Physics vector
 		float* _COM; //center of mass
+		bool _isPhysical; //is the object currently interacting with physics?
 
 	private:
 

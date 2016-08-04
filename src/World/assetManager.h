@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include "gameAssets.h"
+#include "../Math/integrators.h"
 #include "Worlds.h"
 
 #pragma once
@@ -52,6 +53,7 @@ class PhysicsManager { //should this manage collisions or should the classes do 
 		std::vector<PhysicalAsset*> _physicsAssets; //phys objects we work with
 		float* _physVec;
 		const static float _ndim = 6; //number of physics dimensions per vector
+		integrator _integrator; //the physics integrator
 
 
 };

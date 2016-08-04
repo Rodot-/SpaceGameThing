@@ -37,14 +37,9 @@ GameAsset::~GameAsset(void) {}
 
 void GameAsset::Load(std::string filename) {
 
-	_texture = GameRegistry::GetTexture(filename);
-	_isLoaded = true;
-	_filename = filename;
-	_sprite.setTexture(_texture);
 	_hitBox = (void*) new HitBoxBase<sf::FloatRect>(_sprite.getGlobalBounds());	
-
-	/*
-	if (_texture.loadFromFile(filename) == false) {
+	
+	if (GameRegistry::SetTexture(filename, _texture) == false) {
 		_filename = "";
 		_isLoaded = false;
 	}
@@ -53,7 +48,7 @@ void GameAsset::Load(std::string filename) {
 		_sprite.setTexture(_texture);
 		_isLoaded = true;
 	}
-	*/	
+		
 }
 
 void GameAsset::Draw(sf::RenderWindow& window) {
@@ -213,7 +208,7 @@ void GameAsset::SetHitBox(void* hitbox, collision::type type) {
 }
 
 //Physical Assets (Physics Objects)
-PhysicalAsset::PhysicalAsset(void) {
+PhysicalAsset::PhysicalAsset(void) : _isPhysical(true) {
 	_physVec = (float*)malloc(sizeof(float)*_ndim);
 	for (int i = 0; i < _ndim; ++i) {
 		_physVec[i] = 0.0f;
@@ -263,6 +258,8 @@ float PhysicalAsset::getI() const { return _I; }
 float* PhysicalAsset::getCOM() const { return _COM; }
 float* PhysicalAsset::getPhysVec() const { return _physVec; }
 
+bool PhysicalAsset::isPhysical(void) const { return _isPhysical; }
+
 void PhysicalAsset::SetPosition(float x, float y) {
 
 	GameAsset::SetPosition(x, y);
@@ -287,6 +284,9 @@ void PhysicalAsset::setPhysVec(float* vec) {
 	delete _physVec;
 	_physVec = vec;
 }
+
+void PhysicalAsset::setPhysical(bool state) { _isPhysical = state; }
+
 //CompoundAssets (multi-component game assets)
 
 CompoundAsset::CompoundAsset(void) {}

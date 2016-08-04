@@ -84,14 +84,14 @@ void RK4_step(float t, float dt, PhysicalAsset* physObj, void(*rhs_function)(flo
 
 }
 */	
-void Euler_step(float t, float dt, float f_t[], void(*rhs_function)(float t, float f[], float rhsf[], PhysicalAsset* physObj), PhysicalAsset* physObj ) {
+void Euler_step(float t, float dt, float f_t[], std::vector<PhysicalAsset*> physVec, void(*rhs_function)(float t, float f[], float rhsf[], std::vector<PhysicalAsset*> physVec)) { 
 
-	float* rhsf = (float*)malloc(sizeof(physObj->getPhysVec()));
-	rhs_function(t, f_t, rhsf, physObj);
+	size_t ndim = physVec.size()*6;
+	float rhsf[ndim];
+	rhs_function(t, f_t, rhsf, physVec);
 	for (int i=0; i<6; ++i) {
 		f_t[i] += rhsf[i] * dt;
 	}
-	std::free(rhsf);
 }
 		
 

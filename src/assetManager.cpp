@@ -1,6 +1,5 @@
 #include "World/assetManager.h"
 #include "World/Forces.h"
-#include "Math/integrators.h"
 #include <iostream>
 
 //base asset manager
@@ -46,6 +45,9 @@ void AssetManager::DrawAll(sf::RenderWindow& window) {
 
 //Physics Manager
 PhysicsManager::PhysicsManager(void) {
+
+	_integrator = &RK4_step;
+	//_integrator = &Euler_step;
 }
 
 PhysicsManager::~PhysicsManager(void) {}
@@ -71,7 +73,7 @@ void PhysicsManager::InitPhysVec(void) {
 }
 void PhysicsManager::UpdatePhysics(float elapsedTime) {
 	//Test using the universe physics
-	RK4_step(0, elapsedTime, _physVec, _physicsAssets, gravitationalRHSF);
+	_integrator(0, elapsedTime, _physVec, _physicsAssets, gravitationalRHSF);
 	for (std::vector<PhysicalAsset*>::iterator i = _physicsAssets.begin(); i < _physicsAssets.end(); ++i) {
 		(*i)->Update(elapsedTime);
 	} 
