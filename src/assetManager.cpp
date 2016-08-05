@@ -36,8 +36,14 @@ GameAsset* AssetManager::Get(std::string name) const {
 
 void AssetManager::DrawAll(sf::RenderWindow& window) {
 	std::map<std::string, GameAsset*>::const_iterator itr = _gameAssets.begin();
+	sf::Vector2i world_r;
+	sf::Vector2f asset_r;
 	while (itr != _gameAssets.end()) {
+		asset_r = itr->second->GetPosition();
+		world_r = window.mapCoordsToPixel(asset_r); //objects need to be drawn at integer coodinates
+		itr->second->SetPosition(world_r.x, world_r.y);
 		itr->second->Draw(window);
+		itr->second->SetPosition(asset_r.x, asset_r.y); //set the position back to it's float coordinate
 		itr++;
 	}
 }
