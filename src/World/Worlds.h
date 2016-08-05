@@ -1,7 +1,7 @@
 #ifndef WORLDS_H
 #define WORLDS_H
 
-#include "WorldGeometry.h"
+//#include "WorldGeometry.h"
 #include <vector>
 
 #pragma once
