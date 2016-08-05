@@ -15,7 +15,7 @@
 #endif
 
 #ifdef DEBUG_MSG
-#define printd(...) printf(__VA_ARGS__); dprintf(DEBUG_LOG_FILE, __VA_ARGS__) //regular print statement
+#define printd(...) printf(__VA_ARGS__); fprintd(DEBUG_LOG_FILE, __VA_ARGS__) //regular print statement
 #define printv(X) std::cout << #X " = " << X << std::endl //print the value of a variable
 #else
 #define printd(...)
