@@ -21,6 +21,7 @@ class AssetManager {
 		GameAsset* Get(std::string name) const; //get an object by name
 
 		void DrawAll(sf::RenderWindow& window); //Draw all contained assets
+		void UpdateAll(float elapsedTime);
 		
 	private:
 

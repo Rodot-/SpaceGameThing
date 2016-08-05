@@ -42,6 +42,14 @@ void AssetManager::DrawAll(sf::RenderWindow& window) {
 	}
 }
 
+void AssetManager::UpdateAll(float elapsedTime) {
+
+	std::map<std::string, GameAsset*>::const_iterator itr = _gameAssets.begin();
+	for (itr; itr != _gameAssets.end(); ++itr) {
+		itr->second->Update(elapsedTime);
+	}
+}
+
 
 //Physics Manager
 PhysicsManager::PhysicsManager(void) {
@@ -75,7 +83,7 @@ void PhysicsManager::UpdatePhysics(float elapsedTime) {
 	//Test using the universe physics
 	_integrator(0, elapsedTime, _physVec, _physicsAssets, gravitationalRHSF);
 	for (std::vector<PhysicalAsset*>::iterator i = _physicsAssets.begin(); i < _physicsAssets.end(); ++i) {
-		(*i)->Update(elapsedTime);
+		(*i)->PhysUpdate(elapsedTime);
 	} 
 
 }

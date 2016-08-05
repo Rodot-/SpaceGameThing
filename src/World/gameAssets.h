@@ -29,6 +29,7 @@ class GameAsset { //generic game asset class
 		virtual sf::Vector2f GetOrigin() const;
 		virtual float GetRadius() const { return GetGlobalBounds().width/2; }; //temporary
 		virtual void SetScale(float x, float y); //set the sprite scale
+		virtual void SetRotation(float theta); //set the sprite's rotation
 
 		virtual void SetHitBox(void* hitbox, collision::type type); //set the hitbox, for testing
 
@@ -63,7 +64,8 @@ class PhysicalAsset : public GameAsset {
 		PhysicalAsset();
 		virtual ~PhysicalAsset();
 
-		virtual void Update(float elapsedTime); //update the physics
+		virtual void Update(float elapsedTime); //update the object
+		virtual void PhysUpdate(float elapsedTime); //update the physics
 		virtual void Draw(sf::RenderWindow& window); //draw the physobj
 		virtual void Load(std::string filename); //load the object
 
@@ -123,23 +125,26 @@ class CompoundAsset : public PhysicalAsset {
 
 	public:
 
+		//TODO: make the vectors contain gameAssets rather then physical assets
+
 		CompoundAsset();
 		~CompoundAsset();
 
 		virtual void Draw(sf::RenderWindow& window);
 		virtual void Load(std::string filename); //either a filename describing how to load it, or individual call to a section, probably the former
 		virtual void Update(float elapsedTime); //update all of the components
+		virtual void PhysUpdate(float elapsedTime); //update all of the components
 
 		virtual void SetScale(float x, float y);
 		virtual void SetPosition(float x, float y);
-		virtual void Add(std::string name, PhysicalAsset& section, sf::Vector2f origin); //add another asset to this monster at the point defined by 'origin'
+		virtual void Add(std::string name, GameAsset& section, sf::Vector2f origin); //add another asset to this monster at the point defined by 'origin'
 		virtual void Remove(std::string name); //remove an asset
-		PhysicalAsset* Get(std::string name);
+		GameAsset* Get(std::string name);
 		virtual bool HasCollided(GameAsset* other) const;
 
 	private:
 
-		std::map<std::string, PhysicalAsset*> _sections; //a mapping of the sections of the image
+		std::map<std::string, GameAsset*> _sections; //a mapping of the sections of the image
 
 };
 

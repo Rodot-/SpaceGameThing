@@ -3,6 +3,7 @@
 #include "World/Forces.h"
 #include "Math/integrators.h"
 #include "World/HitBox.h"
+#include "Utils/Ordering.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -82,6 +83,11 @@ void GameAsset::SetOrigin(float x, float y) {
 	_sprite.setOrigin(x, y);
 }
 
+void GameAsset::SetRotation(float theta) {
+
+	_sprite.setRotation(theta);
+}
+
 sf::Vector2f GameAsset::GetOrigin(void) const {
 
 	return _sprite.getOrigin();
@@ -122,17 +128,13 @@ collision::type GameAsset::GetCollision(void) const {
 
 bool GameAsset::HasCollided(GameAsset* other) const {
 
-	int colTypes[2] = {(int)(this->GetCollision()), (int)(other->GetCollision())};
-	void* boxes[2] = {this->_hitBox, other->_hitBox};
-	const GameAsset* assets[2] = {this, other};
-	if (colTypes[0] > colTypes[1]) { //sort our hit boxes
-		colTypes[0] = (int)(other->GetCollision());
-		colTypes[1] = (int)(this->GetCollision());
-		boxes[0] = other->_hitBox;
-		boxes[1] = this->_hitBox;
-		assets[0] = other;
-		assets[1] = this;
-	}
+	if (!(this->IsCollidable() && other->IsCollidable()))
+		return false;
+
+	const GameAsset* assets[2] = ARGSORT2((this), (other), ((int)(this->GetCollision())), ((int)(other->GetCollision())));
+	int colTypes[2] = {(int)(assets[0]->GetCollision()), (int)(assets[1]->GetCollision())};
+	void* boxes[2] = {assets[0]->_hitBox, assets[1]->_hitBox};
+
 	for (int i = 0; i < 2; ++i) {
 		sf::Vector2f pos = assets[i]->GetPosition();
 		
@@ -218,17 +220,13 @@ PhysicalAsset::PhysicalAsset(void) : _isPhysical(true) {
 
 PhysicalAsset::~PhysicalAsset(void) {}
 
-void PhysicalAsset::Update(float elapsedTime) { //TODO: make a physUpdate method
+void PhysicalAsset::PhysUpdate(float elapsedTime) { //TODO: make a physUpdate method
 
-	/*
-	float* rhsf = (float*)malloc(sizeof(float)*_ndim);
-	Euler_step(0, elapsedTime, _physVec, basicRHSF, this);
-	SetPosition(_physVec[0], _physVec[1]);
-	GetSprite().setRotation(_physVec[4]);
-	*/
 	SetPosition(_physVec[0], _physVec[1]);
 	_sprite.setRotation(_physVec[4]);
 }
+
+void PhysicalAsset::Update(float elapsedTime) {}
 
 void PhysicalAsset::Draw(sf::RenderWindow& window) {
 	GameAsset::Draw(window);
@@ -295,17 +293,27 @@ CompoundAsset::~CompoundAsset(void) {}
 void CompoundAsset::Draw(sf::RenderWindow& window) {
 
 	if (_isLoaded) {
-		for (std::map<std::string, PhysicalAsset*>::iterator it = _sections.begin(); it != _sections.end(); ++it) {
+		for (std::map<std::string, GameAsset*>::iterator it = _sections.begin(); it != _sections.end(); ++it) {
 			it->second->Draw(window);
 		}
 	}
 }
 
 void CompoundAsset::Update(float elapsedTime) {
-	PhysicalAsset::Update(elapsedTime);
-	std::map<std::string, PhysicalAsset*>::iterator itr = _sections.begin();
+
+	std::map<std::string, GameAsset*>::iterator itr = _sections.begin();
 	for (itr; itr != _sections.end(); ++itr) {
 		itr->second->Update(elapsedTime);
+	}
+}	
+
+void CompoundAsset::PhysUpdate(float elapsedTime) {
+
+	PhysicalAsset::PhysUpdate(elapsedTime);
+	std::map<std::string, GameAsset*>::iterator itr = _sections.begin();
+	for (itr; itr != _sections.end(); ++itr) {
+		itr->second->SetPosition(_physVec[0], _physVec[1]);
+		itr->second->SetRotation(_physVec[4]);
 	}
 }
 
@@ -388,7 +396,7 @@ void CompoundAsset::Load(std::string filename) {
 }
 
 bool CompoundAsset::HasCollided(GameAsset* other) const {
-	std::map<std::string, PhysicalAsset*>::const_iterator itr = _sections.begin();
+	std::map<std::string, GameAsset*>::const_iterator itr = _sections.begin();
 	for (itr; itr != _sections.end(); ++itr) {
 		if (itr->second->HasCollided(other))
 			return true;
@@ -399,7 +407,7 @@ bool CompoundAsset::HasCollided(GameAsset* other) const {
 void CompoundAsset::SetPosition(float x, float y) {
 
 	PhysicalAsset::SetPosition(x, y);
-	std::map<std::string, PhysicalAsset*>::iterator itr = _sections.begin();
+	std::map<std::string, GameAsset*>::iterator itr = _sections.begin();
 	for (itr; itr != _sections.end(); ++itr) {
 		itr->second->SetPosition(x, y);
 	}
@@ -407,22 +415,22 @@ void CompoundAsset::SetPosition(float x, float y) {
 
 void CompoundAsset::SetScale(float x, float y) {
 	PhysicalAsset::SetScale(x, y);
-	std::map<std::string, PhysicalAsset*>::iterator itr = _sections.begin();
+	std::map<std::string, GameAsset*>::iterator itr = _sections.begin();
 	for (itr; itr != _sections.end(); ++itr) {
 		itr->second->SetScale(x, y);
 	}
 }
 
-void CompoundAsset::Add(std::string name, PhysicalAsset& section, sf::Vector2f origin) {
+void CompoundAsset::Add(std::string name, GameAsset& section, sf::Vector2f origin) {
 //TODO:need to set COM each time an item is added
 	section.SetOrigin(section.GetOrigin().x+origin.x, section.GetOrigin().y+origin.y);
-	_sections.insert(std::pair<std::string, PhysicalAsset*>(name, &section));
+	_sections.insert(std::pair<std::string, GameAsset*>(name, &section));
 }
 
 
 void CompoundAsset::Remove(std::string name) {
 
-	std::map<std::string, PhysicalAsset*>::iterator results = _sections.find(name);
+	std::map<std::string, GameAsset*>::iterator results = _sections.find(name);
 	if(results != _sections.end() ) {
 		delete results->second;
 		_sections.erase(results);
@@ -430,9 +438,9 @@ void CompoundAsset::Remove(std::string name) {
 
 }
 
-PhysicalAsset* CompoundAsset::Get(std::string name) {
+GameAsset* CompoundAsset::Get(std::string name) {
 
-	std::map<std::string, PhysicalAsset*>::const_iterator results = _sections.find(name);
+	std::map<std::string, GameAsset*>::const_iterator results = _sections.find(name);
 	if (results == _sections.end() )
 		return NULL;
 	return results->second;
@@ -443,8 +451,6 @@ DynamicAsset::DynamicAsset(void) {};
 DynamicAsset::~DynamicAsset(void) {};
 
 void DynamicAsset::Update(float elapsedTime) {
-
-	PhysicalAsset::Update(elapsedTime);
 	Animate(elapsedTime);
 
 }
@@ -462,6 +468,7 @@ void DynamicAsset::SetAnimation(std::string name) {
 
 	Animation* newAnim = &_anims.Get(name);	
 	if ( newAnim->GetTexture() != _sprite.getTexture()){//TODO: figure out a better way
+	//if ( newAnim->GetTexture() != &_texture){//TODO: see if this works (it doesn't, fix later)
 		_sprite.setTexture(*newAnim->GetTexture()); //TODO: Ditto
 	}
 	_animator.Play(*newAnim);
