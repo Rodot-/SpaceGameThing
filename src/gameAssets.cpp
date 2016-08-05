@@ -223,7 +223,7 @@ PhysicalAsset::~PhysicalAsset(void) {}
 void PhysicalAsset::PhysUpdate(float elapsedTime) { //TODO: make a physUpdate method
 
 	SetPosition(_physVec[0], _physVec[1]);
-	_sprite.setRotation(_physVec[4]);
+	SetRotation(_physVec[4]);
 }
 
 void PhysicalAsset::Update(float elapsedTime) {}
@@ -235,7 +235,6 @@ void PhysicalAsset::Draw(sf::RenderWindow& window) {
 void PhysicalAsset::Load(std::string filename) {
 	GameAsset::Load(filename);
 }
-
 
 
 sf::Vector2f PhysicalAsset::GetVelocity(void) { 
@@ -452,7 +451,6 @@ DynamicAsset::~DynamicAsset(void) {};
 
 void DynamicAsset::Update(float elapsedTime) {
 	Animate(elapsedTime);
-
 }
 
 void DynamicAsset::Load(std::string filename) { //For Testing Purposes only, Ideally, this will be your parser
@@ -468,7 +466,6 @@ void DynamicAsset::SetAnimation(std::string name) {
 
 	Animation* newAnim = &_anims.Get(name);	
 	if ( newAnim->GetTexture() != _sprite.getTexture()){//TODO: figure out a better way
-	//if ( newAnim->GetTexture() != &_texture){//TODO: see if this works (it doesn't, fix later)
 		_sprite.setTexture(*newAnim->GetTexture()); //TODO: Ditto
 	}
 	_animator.Play(*newAnim);
