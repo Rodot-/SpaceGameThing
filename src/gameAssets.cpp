@@ -317,6 +317,8 @@ void CompoundAsset::PhysUpdate(float elapsedTime) {
 }
 
 void CompoundAsset::Load(std::string filename) {
+	_isLoaded = true;
+	/*
     FILE* file;
 	file = fopen(filename.c_str(), "r");
 	_isLoaded = true;
@@ -391,7 +393,7 @@ void CompoundAsset::Load(std::string filename) {
         }
 
     }
-
+	*/
 }
 
 bool CompoundAsset::HasCollided(GameAsset* other) const {
