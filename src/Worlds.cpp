@@ -7,6 +7,8 @@ World::~World(void) {};
 void World::Load(std::string level) {
 	//just for now
 }
+
+//void World::MainLoop(void) {}
 /*
 Surface::Surface(void) {}
 

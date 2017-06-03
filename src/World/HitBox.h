@@ -47,7 +47,8 @@ Will handle basic collision detection
 		//void Set(T hbox); //set the hitbox	
 		template <class T2>
 		bool HasCollided(const HitBoxBase<T2>& other) const; //test for collision
-		void UpdateCenter(float x, float y); //update the hitbox center
+		T GetHitBox() const; //get the transformed hitbox
+		void SetTransform(const sf::Transform& transform);
 
 		collision::type GetCollision() const; //get the collision method
 
@@ -56,9 +57,9 @@ Will handle basic collision detection
 		
 		template <class T2>
 		bool _hasCollided(const T2& other) const; //specific case collisions (polymorphic facillitator)
+		sf::Transform _transform;
 };
 //need some functions to return collision information
-
 
 template <class T>
 HitBoxBase<T>::HitBoxBase(void) { };
@@ -72,32 +73,36 @@ HitBoxBase<T>::HitBoxBase(T hbox) {
 template <class T> //need to do this for array types
 HitBoxBase<T>::~HitBoxBase(void) {};
 
+template <class T>
+void HitBoxBase<T>::SetTransform(const sf::Transform& transform) {
+	_transform = transform;
+}
 
 template <class T>
 template <class T2>
 bool HitBoxBase<T>::HasCollided(const HitBoxBase<T2>& other) const {
 
-	return _hasCollided(other._hbox);
+	return _hasCollided(other.GetHitBox());
 };
 
 template <> 
 template <class T2>
 bool HitBoxBase<std::pair<sf::Vector2f, float> >::_hasCollided(const T2& other) const {
-	return CollisionDetected(_hbox, other);
+	return CollisionDetected(GetHitBox(), other);
 	//return true;
 };
 
 template <> 
 template <class T2>
 bool HitBoxBase<sf::ConvexShape>::_hasCollided(const T2& other) const {
-	return CollisionDetected(_hbox, other);
+	return CollisionDetected(GetHitBox(), other);
 	return true;
 };
 
 template <> 
 template <class T2>
 bool HitBoxBase<sf::FloatRect>::_hasCollided(const T2& other) const {
-	return CollisionDetected(_hbox, other);
+	return CollisionDetected(GetHitBox(), other);
 	return true;
 };
 

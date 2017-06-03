@@ -74,6 +74,11 @@ void PhysicsManager::Remove(int pos) {
 	_physicsAssets.erase(_physicsAssets.begin()+pos);
 }
 
+void PhysicsManager::SetWorld(WorldGeometry* world) {
+
+	_world = world;
+}
+
 void PhysicsManager::InitPhysVec(void) {
 
 	_physVec = (float*)malloc(sizeof(float)*_ndim*_physicsAssets.size());
@@ -87,11 +92,21 @@ void PhysicsManager::InitPhysVec(void) {
 }
 void PhysicsManager::UpdatePhysics(float elapsedTime) {
 	//Test using the universe physics
-	_integrator(0, elapsedTime, _physVec, _physicsAssets, gravitationalRHSF);
+	_integrator(0, elapsedTime, _physVec, _physicsAssets, _world, surfaceRHSF);
 	for (std::vector<PhysicalAsset*>::iterator i = _physicsAssets.begin(); i < _physicsAssets.end(); ++i) {
 		(*i)->PhysUpdate(elapsedTime);
 	} 
+	ProcessCollisions();
 
+}
+
+void PhysicsManager::ProcessCollisions(void) {
+
+	std::vector<PhysicalAsset*>::iterator itr = _physicsAssets.begin();
+	for (itr; itr != _physicsAssets.end(); ++itr) {
+		if (_world->HasCollided(*itr))
+			_world->ManageCollision(*itr);
+	}
 }
 
 int PhysicsManager::GetObjectCount(void) const {

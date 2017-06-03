@@ -4,6 +4,8 @@
 #include "Math/integrators.h"
 #include "World/HitBox.h"
 #include "Utils/Ordering.h"
+#include "Utils/HitBoxFuncs.h"
+#include "Debug/Debug.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -102,6 +104,14 @@ sf::Vector2f GameAsset::GetPosition(void) const {
 	return _sprite.getPosition();
 }
 
+sf::Vector2f GameAsset::GetScale(void) const {
+	return _sprite.getScale();
+}
+
+const sf::Transform& GameAsset::GetTransform(void) const {
+	return _sprite.getTransform();
+}
+
 void GameAsset::SetCollidable(bool state) { 
 	_collidable = state;
 }
@@ -132,34 +142,39 @@ bool GameAsset::HasCollided(GameAsset* other) const {
 		return false;
 
 	const GameAsset* assets[2] = ARGSORT2((this), (other), ((int)(this->GetCollision())), ((int)(other->GetCollision())));
-	int colTypes[2] = {(int)(assets[0]->GetCollision()), (int)(assets[1]->GetCollision())};
-	void* boxes[2] = {assets[0]->_hitBox, assets[1]->_hitBox};
+	collision::type colTypes[2] = {(assets[0]->GetCollision()), (assets[1]->GetCollision())};
+	void* boxes[2] = {assets[0]->GetHitBox(), assets[1]->GetHitBox()};
+	sf::Transform transforms[2] = {assets[0]->GetTransform(), assets[1]->GetTransform()};
 
 	for (int i = 0; i < 2; ++i) {
 		sf::Vector2f pos = assets[i]->GetPosition();
-		
+		sf::Vector2f orig = assets[i]->GetOrigin();		
+		sf::Vector2f scale = assets[i]->GetScale();
+		orig.x *= scale.x;
+		orig.y *= scale.y;
 		switch (colTypes[i]) {
-			case 0:
-				HBRA(boxes[i])->UpdateCenter(pos.x, pos.y);
+			case collision::RADIAL:
+				//HBRA(boxes[i])->UpdateCenter(pos.x-orig.x, pos.y-orig.y);
 				break;
-			case 1:
-				HBRE(boxes[i])->UpdateCenter(pos.x, pos.y);
+			case collision::RECT:
+				HBRE(boxes[i])->SetTransform(transforms[i]);
+				printd("Box at %f %f %f %f\n", HBRE(boxes[i])->GetHitBox().top, HBRE(boxes[i])->GetHitBox().left, HBRE(boxes[i])->GetHitBox().height, HBRE(boxes[i])->GetHitBox().width);
 				break;
-			case 2:
-				HBCV(boxes[i])->UpdateCenter(pos.x, pos.y);
+			case collision::CONVEX:
+				//HBCV(boxes[i])->UpdateCenter(pos.x-orig.x, pos.y-orig.y);
 				break;
 		}
 	}
 	switch (colTypes[0]) {
-		case 0:
+		case collision::RADIAL:
 			switch (colTypes[1]) {
-				case 0:
+				case collision::RADIAL:
 					return HBRA(boxes[0])->HasCollided(*HBRA(boxes[1]));
 					break;
-				case 1:	
+				case collision::RECT:	
 					return HBRA(boxes[0])->HasCollided(*HBRE(boxes[1]));
 					break;
-				case 2:
+				case collision::CONVEX:
 					return HBRA(boxes[0])->HasCollided(*HBCV(boxes[1]));
 					break;
 				//case 3:
@@ -167,12 +182,12 @@ bool GameAsset::HasCollided(GameAsset* other) const {
 				//	break;	
 			}
 		break;
-		case 1:
+		case collision::RECT:
 			switch (colTypes[1]) {
-				case 1:	
+				case collision::RECT:	
 					return HBRE(boxes[0])->HasCollided(*HBRE(boxes[1]));
 					break;
-				case 2:
+				case collision::CONVEX:
 					return HBRE(boxes[0])->HasCollided(*HBCV(boxes[1]));
 					break;
 				//case 3:
@@ -180,9 +195,9 @@ bool GameAsset::HasCollided(GameAsset* other) const {
 				//	break;	
 			}
 		break;
-		case 2:
+		case collision::CONVEX:
 			switch (colTypes[1]) {
-				case 2:
+				case collision::CONVEX:
 					return HBCV(boxes[0])->HasCollided(*HBCV(boxes[1]));
 					break;
 				///case 3:
@@ -207,6 +222,15 @@ bool GameAsset::HasCollided(GameAsset* other) const {
 void GameAsset::SetHitBox(void* hitbox, collision::type type) {
 	_collisionMethod = type;
 	_hitBox = hitbox;
+}
+
+void* GameAsset::GetHitBox(void) const {
+
+	return _hitBox;
+}
+
+void GameAsset::ManageCollision(GameAsset* other) { 
+
 }
 
 //Physical Assets (Physics Objects)
@@ -236,6 +260,36 @@ void PhysicalAsset::Load(std::string filename) {
 	GameAsset::Load(filename);
 }
 
+void PhysicalAsset::ManageCollision(GameAsset* other) {
+//this is only for testing purposes, this code is a mess
+	float dx=0, dy=0, x, y;
+	if (this->GetCollision() == collision::RECT) {
+		if (other->GetCollision() == collision::RECT) {
+			sf::FloatRect intersection;
+			HBRE(this->GetHitBox())->GetHitBox().intersects(HBRE(other->GetHitBox())->GetHitBox(), intersection);
+			sf::FloatRect b1, b2;
+			b1 = HBRE(GetHitBox())->GetHitBox();
+			b2 = HBRE(other->GetHitBox())->GetHitBox();
+			if (intersection.width > intersection.height) {
+				if (b1.top > b2.top)
+					dy = intersection.height;	
+				else
+					dy = -intersection.height;
+				setVy(0.0);
+			}
+			else {
+				if (b1.left > b2.left)
+					dx = intersection.width;
+				else
+					dx = -intersection.width;
+				setVx(0.0);
+			}
+			x = getPhysVec()[0] + dx;
+			y = getPhysVec()[1] + dy;
+			SetPosition(x,y);
+		}
+	}			
+}
 
 sf::Vector2f PhysicalAsset::GetVelocity(void) { 
 	_velocity.x = _physVec[2];
@@ -398,11 +452,25 @@ void CompoundAsset::Load(std::string filename) {
 
 bool CompoundAsset::HasCollided(GameAsset* other) const {
 	std::map<std::string, GameAsset*>::const_iterator itr = _sections.begin();
-	for (itr; itr != _sections.end(); ++itr) {
+	//TODO: Check for collision with larger hitbox encompassing the whole compound asset
+	bool result = false
+	printd("Testing a Compound Asset Collision\n");
+	for (itr; itr != _sections.end(); ++itr) { //collision managment on every single collision
+		printd("Testing a new hitbox\n");
+		printd("At %f %f\n", -itr->second->GetOrigin().x+itr->second->GetPosition().x, -itr->second->GetOrigin().y+itr->second->GetPosition().y);
 		if (itr->second->HasCollided(other))
-			return true;
+			result = true;
 	}
-	return false;
+	return result;
+}
+
+void CompoundAsset::ManageCollision(GameAsset* other) {
+
+	std::map<std::string, GameAsset*>::iterator itr = _sections.begin();
+	for (itr; itr != _sections.end(); ++itr) {
+		if (itr->second->HasCollided(other)) //seriously, rework this shit, no need to check again
+			other->ManageCollision(itr->second);
+	}
 }
 
 void CompoundAsset::SetPosition(float x, float y) {
@@ -464,6 +532,18 @@ void DynamicAsset::AddAnimation(std::string name, Animation& animation) {
 	_anims.Add(name, animation);
 }
 
+void DynamicAsset::GenerateAnimHitBox(std::string name) { //generate the hitboxes for an animation
+//TODO: rework the hitbox initialization
+
+	_hitBoxes[&_anims.Get(name)] = std::vector<void*>();
+	sf::Sprite temp;
+	for (int i = 0; i < _anims.Get(name).GetFrameCount(); ++i) {
+		temp.setTexture(*_anims.Get(name).GetTexture());
+		temp.setTextureRect(_anims.Get(name).GetFrame(i));
+		_hitBoxes[&_anims.Get(name)].push_back(GenerateHitBox(temp));
+	}
+}
+
 void DynamicAsset::SetAnimation(std::string name) {
 
 	Animation* newAnim = &_anims.Get(name);	
@@ -483,6 +563,21 @@ void DynamicAsset::Animate(float elapsedTime) {
 void DynamicAsset::Interact(GameAsset& other) {
 /*TODO: this*/
 }
+
+void* DynamicAsset::GetHitBox(void) const {
+
+	std::map<const Animation*, std::vector<void*> >::const_iterator results = _hitBoxes.find(_animator.GetAnimation());
+	if (results != _hitBoxes.end()) {
+		sf::FloatRect hbox = HBRE(results->second[_animator.GetCurrentIndex()])->GetHitBox();
+		printd("t,l,h,w = %f, %f, %f, %f\n", hbox.top, hbox.left, hbox.height, hbox.width);
+		return results->second[_animator.GetCurrentIndex()];
+	}
+}
+
+
+
+
+
 
 
 

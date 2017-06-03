@@ -5,6 +5,7 @@
 #include "gameAssets.h"
 #include "../Math/integrators.h"
 #include "Worlds.h"
+#include "WorldGeometry.h"
 
 #pragma once
 class AssetManager {
@@ -46,7 +47,9 @@ class PhysicsManager { //should this manage collisions or should the classes do 
 		void InitPhysVec(); //intialize the main physics vector
 
 		virtual void UpdatePhysics(float elapsedTime); //run physics on all physics objects
+		virtual void ProcessCollisions(); //process all resulting collisions
 
+		void SetWorld(WorldGeometry* world); //set the world geometry for the level
 		int GetObjectCount() const; //get number of phys objects
 
 	protected:
@@ -54,6 +57,7 @@ class PhysicsManager { //should this manage collisions or should the classes do 
 		std::vector<PhysicalAsset*> _physicsAssets; //phys objects we work with
 		float* _physVec;
 		const static float _ndim = 6; //number of physics dimensions per vector
+		WorldGeometry* _world; //the world of static game world geometry assets
 		integrator _integrator; //the physics integrator
 
 

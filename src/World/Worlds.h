@@ -1,11 +1,13 @@
 #ifndef WORLDS_H
 #define WORLDS_H
 
-//#include "WorldGeometry.h"
 #include <vector>
+#include <string>
+#include "WorldGeometry.h"
+
 
 #pragma once
-class World {
+class World { // contains some physics information
 
 	public:
 
@@ -14,6 +16,9 @@ class World {
 		virtual void Load(std::string level); //load a level from a script
 
 	private:
+
+		std::vector<WorldGeometry*> _geometries;
+
 
 };
 

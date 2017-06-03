@@ -4,8 +4,8 @@
 #include <iostream>
 #include <stdio.h>
 
-#define DEBUG_MSG //are we printing debug messages?
-#define DEBUG_LOG //should we log the debug?
+//#define DEBUG_MSG //are we printing debug messages?
+//#define DEBUG_LOG //should we log the debug?
 #define DEBUG_LOG_FILE fopen("dLog.txt","a")
 
 #ifdef DEBUG_LOG

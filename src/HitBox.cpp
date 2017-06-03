@@ -23,24 +23,33 @@ bool HitBoxBase<T>::HasCollided(const HitBoxBase<T2>& other) const {
 */
 //return a different collision method depending on the type
 
-template <>
-void HitBoxBase<std::pair<sf::Vector2f, float> >::UpdateCenter(float x, float y) {
+//template <>
+//void HitBoxBase<std::pair<sf::Vector2f, float> >::UpdateCenter(float x, float y) {
 
-	_hbox.first.x = x;
-	_hbox.first.y = y;
+//	_hbox.first.x = x;
+//	_hbox.first.y = y;
+//}
+
+template<>
+sf::FloatRect HitBoxBase<sf::FloatRect>::GetHitBox(void) const {
+
+	return _transform.transformRect(_hbox);
 }
 
-template <>
-void HitBoxBase<sf::FloatRect>::UpdateCenter(float x, float y) {
+template<>
+std::pair<sf::Vector2f, float> HitBoxBase<std::pair<sf::Vector2f, float> >::GetHitBox(void) const {
 
-	_hbox.left = x+_hbox.width/2;
-	_hbox.top = y+_hbox.height/2;
+	return std::pair<sf::Vector2f, float>(_transform.transformPoint(_hbox.first), _hbox.second);
 }
 
-template <>
-void HitBoxBase<sf::ConvexShape>::UpdateCenter(float x, float y) {
+template<>
+sf::ConvexShape HitBoxBase<sf::ConvexShape>::GetHitBox(void) const {
 
-	_hbox.setPosition(x, y);
+	sf::ConvexShape result = _hbox;
+	for (int i = 0; i < result.getPointCount(); ++i) {
+		result.setPoint(i, _transform.transformPoint(_hbox.getPoint(i)));
+	}
+	return result;
 }
 
 template <> 

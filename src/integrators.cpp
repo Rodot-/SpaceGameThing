@@ -30,7 +30,7 @@ void RK4_step(float t, float dt, float f_t[], void(*rhs_function)(float t, float
 
 }
 */
-void RK4_step(float t, float dt, float f_t[], std::vector<PhysicalAsset*> physVec, void(*rhs_function)(float t, float f[], float rhsf[], std::vector<PhysicalAsset*> physVec)) { 
+void RK4_step(float t, float dt, float f_t[], std::vector<PhysicalAsset*> physVec, WorldGeometry* world, void(*rhs_function)(float t, float f[], float rhsf[], std::vector<PhysicalAsset*> physVec, WorldGeometry* world)) { 
 
 	size_t ndim = physVec.size()*6;
 	float f_f[ndim];
@@ -46,7 +46,7 @@ void RK4_step(float t, float dt, float f_t[], std::vector<PhysicalAsset*> physVe
 		h = ((j + 1) / 2)*0.5;
 		s = ((j + 2) / 2)*0.5;
 		z = -0.25*j*(j-3)+0.5;
-		rhs_function(t + h * dt, f_k, rhsf, physVec);
+		rhs_function(t + h * dt, f_k, rhsf, physVec, world);
 		for (i=0; i<ndim; ++i) {
 			k = dt * rhsf[i];
 			f_k[i] = f_t[i] + s * k;
@@ -84,11 +84,11 @@ void RK4_step(float t, float dt, PhysicalAsset* physObj, void(*rhs_function)(flo
 
 }
 */	
-void Euler_step(float t, float dt, float f_t[], std::vector<PhysicalAsset*> physVec, void(*rhs_function)(float t, float f[], float rhsf[], std::vector<PhysicalAsset*> physVec)) { 
+void Euler_step(float t, float dt, float f_t[], std::vector<PhysicalAsset*> physVec, WorldGeometry* world, void(*rhs_function)(float t, float f[], float rhsf[], std::vector<PhysicalAsset*> physVec, WorldGeometry* world)) { 
 
 	size_t ndim = physVec.size()*6;
 	float rhsf[ndim];
-	rhs_function(t, f_t, rhsf, physVec);
+	rhs_function(t, f_t, rhsf, physVec, world);
 	for (int i=0; i<6; ++i) {
 		f_t[i] += rhsf[i] * dt;
 	}

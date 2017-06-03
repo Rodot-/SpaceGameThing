@@ -30,8 +30,11 @@ class GameAsset { //generic game asset class
 		virtual float GetRadius() const { return GetGlobalBounds().width/2; }; //temporary
 		virtual void SetScale(float x, float y); //set the sprite scale
 		virtual void SetRotation(float theta); //set the sprite's rotation
+		virtual sf::Vector2f GetScale() const; //get the sprite scale
+		virtual const sf::Transform& GetTransform() const; //get the sprite's transformation
 
 		virtual void SetHitBox(void* hitbox, collision::type type); //set the hitbox, for testing
+		virtual void* GetHitBox() const;
 
 		virtual sf::Vector2f GetPosition() const; //get the position of the sprite
 
@@ -39,6 +42,7 @@ class GameAsset { //generic game asset class
 		bool IsCollidable() const;
 		void SetCollidable(bool state);
 		virtual bool HasCollided(GameAsset* other) const;
+		virtual void ManageCollision(GameAsset* other); //manage the collision.  Move self, etc.
 		collision::type GetCollision() const;
 
 	protected:
@@ -68,6 +72,7 @@ class PhysicalAsset : public GameAsset {
 		virtual void PhysUpdate(float elapsedTime); //update the physics
 		virtual void Draw(sf::RenderWindow& window); //draw the physobj
 		virtual void Load(std::string filename); //load the object
+		virtual void ManageCollision(GameAsset* other); //manage the collision.  Move self, etc.
 
 		sf::Vector2f GetVelocity(); //get 2D linear velocity
 		float GetOmega() const; //get angular velocity
@@ -141,6 +146,7 @@ class CompoundAsset : public PhysicalAsset {
 		virtual void Remove(std::string name); //remove an asset
 		GameAsset* Get(std::string name);
 		virtual bool HasCollided(GameAsset* other) const;
+		virtual void ManageCollision(GameAsset* other);
 
 	private:
 
@@ -169,12 +175,14 @@ class DynamicAsset : public PhysicalAsset { //basically, something physical with
 		//everywhere
 		virtual void SetAnimation(std::string name); //set the current animation
 		virtual void Animate(float elapsedTime); //This will go inside the update method
+		virtual void* GetHitBox() const; //get the hitbox of the current animation's current frame
+		virtual void GenerateAnimHitBox(std::string name);
 
 	//private: only until the animation registry is done!
 
 		MultiAnimation _anims;
 		Animator _animator;
-	
+		std::map<const Animation*, std::vector<void*> > _hitBoxes; //map of vector of hitboxes	
 };
 
 
