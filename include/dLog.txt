@@ -1,0 +1,1407 @@
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to idle
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to walk right
+Set state to walk left
+Set state to idle
+Set state to walk left
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to walk right
+Set state to idle
+Set state to walk left
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right
+Set state to idle
+Set state to walk right

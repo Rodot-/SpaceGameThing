@@ -1,0 +1,38 @@
+In file included from gameAssets.cpp:5:0:
+World/HitBox.h:73:1: error: ‘friend’ used outside of class
+ friend bool HitBoxBase<T>::HasCollided(const HitBoxBase<T2>& other) {
+ ^
+World/HitBox.h:73:67: error: no ‘bool HitBoxBase<T>::HasCollided(const HitBoxBase<T2>&)’ member function declared in class ‘HitBoxBase<T>’
+ friend bool HitBoxBase<T>::HasCollided(const HitBoxBase<T2>& other) {
+                                                                   ^
+gameAssets.cpp: In member function ‘bool GameAsset::HasCollided(GameAsset*) const’:
+gameAssets.cpp:139:29: error: ‘class HitBoxBase<std::pair<sf::Vector2<float>, float> >’ has no member named ‘HasCollided’
+      return HBRA(boxes[0])->HasCollided(*HBRA(boxes[1]));
+                             ^
+gameAssets.cpp:142:29: error: ‘class HitBoxBase<std::pair<sf::Vector2<float>, float> >’ has no member named ‘HasCollided’
+      return HBRA(boxes[0])->HasCollided(*HBRE(boxes[1]));
+                             ^
+gameAssets.cpp:145:29: error: ‘class HitBoxBase<std::pair<sf::Vector2<float>, float> >’ has no member named ‘HasCollided’
+      return HBRA(boxes[0])->HasCollided(*HBCV(boxes[1]));
+                             ^
+gameAssets.cpp:148:29: error: ‘class HitBoxBase<std::pair<sf::Vector2<float>, float> >’ has no member named ‘HasCollided’
+      return HBRA(boxes[0])->HasCollided(*HBPX(boxes[1]));
+                             ^
+gameAssets.cpp:155:29: error: ‘class HitBoxBase<sf::Rect<float> >’ has no member named ‘HasCollided’
+      return HBRE(boxes[0])->HasCollided(*HBRE(boxes[1]));
+                             ^
+gameAssets.cpp:158:29: error: ‘class HitBoxBase<sf::Rect<float> >’ has no member named ‘HasCollided’
+      return HBRE(boxes[0])->HasCollided(*HBCV(boxes[1]));
+                             ^
+gameAssets.cpp:161:29: error: ‘class HitBoxBase<sf::Rect<float> >’ has no member named ‘HasCollided’
+      return HBRE(boxes[0])->HasCollided(*HBPX(boxes[1]));
+                             ^
+gameAssets.cpp:168:29: error: ‘class HitBoxBase<sf::ConvexShape>’ has no member named ‘HasCollided’
+      return HBCV(boxes[0])->HasCollided(*HBCV(boxes[1]));
+                             ^
+gameAssets.cpp:171:29: error: ‘class HitBoxBase<sf::ConvexShape>’ has no member named ‘HasCollided’
+      return HBCV(boxes[0])->HasCollided(*HBPX(boxes[1]));
+                             ^
+gameAssets.cpp:178:29: error: ‘class HitBoxBase<sf::Image>’ has no member named ‘HasCollided’
+      return HBPX(boxes[0])->HasCollided(*HBPX(boxes[1]));
+                             ^
