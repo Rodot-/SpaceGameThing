@@ -4,9 +4,9 @@
 
 bool HaveCollided(GameAsset* A, GameAsset* B) {
 
-	if (!A->IsCollidable() || !B->IsCollidable())
+	if !(A->IsCollidable() && B->IsCollidable())
 		return false;
-	if (!A->GetGlobalBounds().intersects(B->GetGlobalBounds()))
+	if (!A->GetGlobalBounds().intersects(B->GetGlobalBounds())) //wont work for circles
 		return false;
 	collision::type act = A->GetCollision();
 	collision::type bct = B->GetCollision();

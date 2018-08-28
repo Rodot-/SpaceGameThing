@@ -33,6 +33,44 @@ sf::ConvexShape
 std::pair<sf::Vector2f, float> (a circle)
 */
 
+enum hb_flag {
+        NONE = 0, 
+        RADIAL = 1,
+        RECT = 2,
+        CONVEX = 4,
+        PIXEL = 8 
+        }//, RADIAL_ARR, RECT_ARR, CONVEX_ARR, PIXEL_ARR}; //types of possible collision methods specific to each object
+
+inline hb_flag operator|(hb_flag a, hb_flag b)
+	{return static_cast<hb_flag>(static_cast<int>(a) | static_cast<int>(b))};
+
+inline hb_flag operator&(hb_flag a, hb_flag b)
+	{return static_cast<hb_flag>(static_cast<int>(a) & static_cast<int>(b))};
+
+inline hb_flag operator^(hb_flag a, hb_flag b)
+	{return static_cast<hb_flag>(static_cast<int>(a) ^ static_cast<int>(b))};
+
+};
+
+
+class HitBox {
+
+	public:
+
+		HitBox();
+		HitBox(void*, hb_flag);
+		~HitBox();
+
+		void* GetGeometry(); //return the transformed hitbox geometry
+
+		hb_flag GetFlag() const; //get collision type
+
+	private:
+
+		void* _geometry;  //the base hitbox geometry
+		hb_flag _flag; //the type of hitbox
+};
+
 template <class T> //T should be one of the above
 class HitBoxBase { 
 /*base hitbox class
@@ -58,6 +96,7 @@ Will handle basic collision detection
 		template <class T2>
 		bool _hasCollided(const T2& other) const; //specific case collisions (polymorphic facillitator)
 		sf::Transform _transform;
+		//unsigned int _is_arr:1 // binary flag indicating the hitbox is an array (Could just make the hitbox object an array by default, for now though I wont even worry about it)
 };
 //need some functions to return collision information
 

@@ -1,4 +1,3 @@
-
 #include "World/gameAssets.h"
 #include "World/Forces.h"
 #include "Math/integrators.h"
@@ -213,7 +212,7 @@ bool GameAsset::HasCollided(GameAsset* other) const {
 		//	}
 		//break;
 	}
-	
+
 	return false;
 
 }

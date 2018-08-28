@@ -22,13 +22,13 @@ template <typename T>
 inline float angle(sf::Vector2<T> V); //angle of a vector
 
 template <typename T>
-inline sf::Vector2<T> norm(sf::Vector2<T> V); //get a vector normal to V
+sf::Vector2<T> norm(sf::Vector2<T> V); //get a vector normal to V
 
 template <typename T>
-inline float mag(sf::Vector2<T> V); //get the mag of V
+float mag(sf::Vector2<T> V); //get the mag of V
 
 template <typename T>
-inline sf::Vector2<T> unit(sf::Vector2<T> V); //get the unit vector for V
+sf::Vector2<T> unit(sf::Vector2<T> V); //get the unit vector for V
 
 
 template <typename T>

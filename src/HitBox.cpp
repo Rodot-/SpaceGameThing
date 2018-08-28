@@ -1,5 +1,22 @@
 #include "World/HitBox.h"
 #include <stdio.h>
+
+
+HitBox::HitBox(void) : _flag(NONE) { }
+
+HitBox::HitBox(void* geometry, hb_flag flag) : _geometry(geometry), _flag(flag) { }
+
+~HitBox::HitBox() {
+	delete _geometry;
+}
+
+void* GetGeometry() {
+	return _geometry;
+}
+
+hb_flag GetFlag() const {
+	return _flag;
+}
 /*
 template <class T>
 HitBoxBase<T>::HitBoxBase(void) { }

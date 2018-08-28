@@ -2,7 +2,7 @@
 #ifndef SHIP_H
 #define SHIP_H
 
-#include "gameAssetis.h"
+#include "gameAssets.h"
 
 
 class ShipPart : public DynamicAsset { //TODO: possibly have these classes contain a generic struct for managing the level of some resource whether it is HP, fuel, ammo, etc.
@@ -39,7 +39,7 @@ class FuelTank : public ShipPart {
 		float GetMaxFuelLevel() const;
 		void SetMaxFuelLevel(float maxFuel);
 
-		float Drain
+		float Drain;
 
 	private:
 
@@ -54,8 +54,8 @@ class Ship : public CompoundAsset {
 		Ship();
 		~Ship();
 	
-		Interact(sf::Event event);
-		Update(float elapsedTime);
+		void Interact(sf::Event event);
+		void Update(float elapsedTime);
 
 
 };

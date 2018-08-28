@@ -103,7 +103,9 @@ void PhysicsManager::UpdatePhysics(float elapsedTime) {
 void PhysicsManager::ProcessCollisions(void) {
 
 	std::vector<PhysicalAsset*>::iterator itr = _physicsAssets.begin();
+	
 	for (itr; itr != _physicsAssets.end(); ++itr) {
+
 		if (_world->HasCollided(*itr))
 			_world->ManageCollision(*itr);
 	}

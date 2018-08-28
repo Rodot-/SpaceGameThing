@@ -9,22 +9,43 @@
 #include "vmath.h"
 //#include "../World/gameAssets.h"
 
-
-
 namespace collision { //namespace containing various collision specific properties
 
-	enum type {RADIAL, RECT, CONVEX, PIXEL, RADIAL_ARR, RECT_ARR, CONVEX_ARR, PIXEL_ARR}; //types of possible collision methods specific to each object
+	enum type {
+		NONE = 0, 
+		RADIAL = 1, 
+		RECT = 2,
+		CONVEX = 4,
+		PIXEL = 8 
+		}//, RADIAL_ARR, RECT_ARR, CONVEX_ARR, PIXEL_ARR}; //types of possible collision methods specific to each object
+	
+	inline type operator|(type a, type b) 
+		{return static_cast<type>(static_cast<int>(a) | static_cast<int>(b))};
+
+	inline type operator&(type a, type b) 
+		{return static_cast<type>(static_cast<int>(a) & static_cast<int>(b))};
+
+	inline type operator^(type a, type b) 
+		{return static_cast<type>(static_cast<int>(a) ^ static_cast<int>(b))};
+
 };
 
-inline bool RadialRadial(const sf::Vector2f& p1, float r1, const sf::Vector2f& p2, float r2);
+typedef bool (*fpter)(type, type); //return the collision function corresponding to a type
+
+bool NoneFunction(...) { //for no collision
+
+	return false;
+}
+
+bool RadialRadial(const sf::Vector2f& p1, float r1, const sf::Vector2f& p2, float r2);
 /* Determine if there is a collision between two radially 
 	colliding objects centered at p1 and p2 with radii r1 
 	and r2 respectively */ 
 
-inline bool RectRect(const sf::FloatRect& R1, const sf::FloatRect& R2);
+bool RectRect(const sf::FloatRect& R1, const sf::FloatRect& R2);
 /* determine if two float rects intersct */
 
-inline bool RadialRect(const sf::Vector2f& p1, float r1, const sf::FloatRect& R1);
+bool RadialRect(const sf::Vector2f& p1, float r1, const sf::FloatRect& R1);
 /* determine if a rectangle and a circle collide 
 	later, rewrite so the order does not matter*/
 

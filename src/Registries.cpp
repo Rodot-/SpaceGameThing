@@ -132,7 +132,7 @@ bool AnimationRegistry::Load(std::string name) {
 		line = "";
 	}
 	Animation newAnim = RollingTileSheet(params.width, params.height, params.method_attr, params.count);
-	newAnim.SetTexture(GameRegistry::GetTexture("../"+params.TileSheet));
+	newAnim.SetTexture(GameRegistry::GetTexture(params.TileSheet));
 	newAnim.SetBaseFrameTime(1.0/params.FPS);	
 	_contents[name] = newAnim;
 	return true;
