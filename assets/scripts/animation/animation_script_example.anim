@@ -1,0 +1,53 @@
+# This is an example file for an animation script
+# 
+# Text after an octothorp (# symbol) are comments.  
+# Comments are not seen by the interpreter 
+#
+# Some syntax I'd like to offer:
+#
+# 1. Each property is one word (camelCase recommended) with the value written after separated by a ':'
+# 2. whitespace is ignored except for newlines (spaces and tabs dont matter, but new lines do)
+# 3. All methods of indexing start at 0 NOT 1 (e.g. array[0] = first element, array[1] = second, etc.)
+# 4. Data types can be:
+#   i. strings (words) surrounded by quotes
+
+Name: "Walk sequence"
+File: "bin/walkSequence.png"
+
+#   ii. ints (integers) as regular numbers
+
+FPS: 12
+FrameCount: 48
+FrameHeight: 128
+FrameWidth: 128
+
+#   iii. floats (decimal numbers) as regular numbers but ending with an f
+
+SomeProperty: 5.693 #idk what you'd need decimal numbers for though
+
+#   iv.booleans (true/false values) written explicitly
+
+Looping: true
+
+#   v. tuples (container of two or more values) inside parethesis with values separated by commas
+
+FrameDimension: (128, 128)    # (height, width)
+
+#   vi. Arrays (orderd lists of values) inside square brackets separated by commas
+
+FrameLocations: [(0,0),(1,0),(2,0)...(47,0)] # (x,y) coordinates of the tiles in the texture
+
+Chiral: True #are the left and right animations included?
+
+
+
+# possibly add animation types for help with compiler?  Or maybe do that in sprite scripts?
+# add different methods of compiling an animation from texture using keywords
+# some options would be things like
+# Method: "row" to just load a whole row of tiles, then have properties for things like which row
+# some other possible methods:
+# "explicit" meaning you have to exactly write out which frames are where (useful for small tile sheets)
+# "column" same as row, but with a column instead
+
+
+

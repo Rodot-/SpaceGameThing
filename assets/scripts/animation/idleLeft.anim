@@ -1,0 +1,6 @@
+FileName: "assets/tileSheets/boilSequence.png"
+FPS: 12
+height: 512
+width: 512
+count: 12
+method: (row, 1)

@@ -1,0 +1,9 @@
+# again, comments start with # symbols
+[PartName] #section header give the name of the part
+Texture: "filename.png" #filename of the texture for the part
+Offest: (x, y) #x and y are floats, determine the offset from the center of the item
+... # Any other physical asset property
+[PartName2]
+...
+
+...

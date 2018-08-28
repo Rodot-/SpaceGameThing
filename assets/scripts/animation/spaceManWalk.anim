@@ -1,0 +1,8 @@
+Name: "spaceManWalk"
+File: "assets/tileSheets/walkSequence.png"
+FPS: 12
+Count: 12
+Height: 512
+Width: 512
+Order: "row"
+Chiral: True

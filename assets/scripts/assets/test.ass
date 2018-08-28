@@ -1,0 +1,12 @@
+[Body]
+Texture: "bin/Body.png"
+Offset: (0,0)
+Origin: (256, 256)
+[Head]
+Texture: "bin/planet.png"
+Offset: (0, -351)
+Origin: (95,95)
+[Toes]
+Texture: "bin/TestTexture.png"
+Offset: (0, 512)
+Origin: (256, 256)
